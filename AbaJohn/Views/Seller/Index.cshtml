@@ -1,0 +1,12 @@
+﻿
+@{
+    if (User.IsInRole("seller"))
+    {
+        Layout = "_sellerLayout";
+    }
+    else if (User.IsInRole("admin"))
+    {
+        Layout = "_adminLayout";
+    }
+}
+<h3> Hello from Seller page </h3>
