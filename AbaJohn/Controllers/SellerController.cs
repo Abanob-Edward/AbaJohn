@@ -23,45 +23,17 @@ namespace AbaJohn.Controllers
         [Authorize(Roles = "admin , seller")]
         public IActionResult Index()
         {
-            /*ViewBag.layout = "_sellerLayout";*/
-         /*   TempData["layout"] = "_sellerLayout";*/
-            return View();
-        }
-
-        public IActionResult ShowAllproduct() {
-            List<Product> products = productRepository.get_all_product();
-            return View(products);
           
-        }
-        [Authorize(Roles = "admin , seller")]
-        public IActionResult Add_product()
-        {
-
-            // ViewBag.cat = context.categories.Select(x => new { x.Id, x.Name }).ToList();
-            ViewBag.cat = categoeryRepository.get_all();
-
-
             return View();
         }
-        [HttpPost]
-        [Authorize(Roles = "admin , seller")]
-        public IActionResult Add_product(productViewModel new_product)
+        public IActionResult home()
         {
-            if (ModelState.IsValid)
-            {
-
-                productRepository.create(new_product);
-
-                return RedirectToAction("Show_all_product", "AdminServics");
-
-            }
-            else
-            {
-                ModelState.AddModelError("", "Error!");
-            }
-
-            return View(new_product);
-
+          
+            return RedirectToAction("index","home");
+        }
+        public IActionResult SellerProfile()
+        {
+            return View();
         }
     }
 }

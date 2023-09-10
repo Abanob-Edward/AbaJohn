@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+ 
+    <link rel="stylesheet" href="style.css">
+    <!-- Boxicons CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @if (User.IsInRole("seller"))
+    {
+
+        <!-- Css Styles -->
+        <link rel="stylesheet" href="~/css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="~/css/font-awesome.min.css" type="text/css">
+        <link rel="stylesheet" href="~/css/elegant-icons.css" type="text/css">
+        <link rel="stylesheet" href="~/css/magnific-popup.css" type="text/css">
+        <link rel="stylesheet" href="~/css/nice-select.css" type="text/css">
+        <link rel="stylesheet" href="~/css/owl.carousel.min.css" type="text/css">
+        <link rel="stylesheet" href="~/css/slicknav.min.css" type="text/css">
+        <link rel="stylesheet" href="~/css/style.css" type="text/css">
+    }
+   
+    <link rel="stylesheet" href="~/sidebar/style.css">
+</head>
+<body>
+  <div class="sidebar">
+    <div class="logo-details">
+     
+        <div class="logo_name">
+                <div class="logo-details">
+                    <img src="~/img/logo-withoutbackground.png" />
+                </div>
+        </div>
+        <i class='bx bx-menu' id="btn" ></i>
+    </div>
+        @*partial view here *@
+        <partial name="_SideBarItemForSellerpartil" />
+  </div>
+  <section class="home-section">
+      @RenderBody();
+      <div class="text">Dashboard</div><br/>
+  </section>
+  <script>
+  let sidebar = document.querySelector(".sidebar");
+  let closeBtn = document.querySelector("#btn");
+  let searchBtn = document.querySelector(".bx-search");
+
+       
+
+  closeBtn.addEventListener("click", ()=>{
+    sidebar.classList.toggle("open");
+    
+    menuBtnChange();//calling the function(optional)
+  });
+
+  searchBtn.addEventListener("click", ()=>{ // Sidebar open when you click on the search iocn
+    sidebar.classList.toggle("open");
+    menuBtnChange(); //calling the function(optional)
+  });
+
+  // following are the code to change sidebar button(optional)
+  function menuBtnChange() {
+   if(sidebar.classList.contains("open")){
+     closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
+                $("#user-img").css("display", "block");
+                $(".roleIcon").css("display", "block");
+               
+   }else {
+     closeBtn.classList.replace("bx-menu-alt-right","bx-menu");//replacing the iocns class
+                $("#user-img").css("display", "none");
+                $(".roleIcon").css("display", "none");
+
+   }
+  }
+  </script>
+  <script src="~/sidebar/js/jquery.min.js"></script>
+    <script src="~/sidebar/js/popper.js"></script>
+    <script src="~/sidebar/js/bootstrap.min.js"></script>
+    <script src="~/sidebar/js/main.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+
+</body>
+</html>
+@if (User.IsInRole("seller"))
+{
+    <!-- Js Plugins -->
+    <script src="~/js/jquery-3.3.1.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+
+    <script src="~/js/jquery.nicescroll.min.js"></script>
+    <script src="~/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/js/jquery.countdown.min.js"></script>
+    <script src="~/js/jquery.slicknav.js"></script>
+    <script src="~/js/mixitup.min.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    <script src="~/js/main.js"></script>
+}

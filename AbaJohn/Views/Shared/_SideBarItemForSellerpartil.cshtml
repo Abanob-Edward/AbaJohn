@@ -1,0 +1,80 @@
+﻿
+<ul class="nav-list">
+
+
+
+
+    <li style="text-align:center">
+
+        <img class="user-img" id="user-img" src="../img/bussaccimg/sellerimg/img_2391.jpg" alt="">
+            
+      
+    </li>
+    <li >
+        <h2 class="roleIcon"> SELLER</h2>
+    </li>
+
+    <li>
+        <a asp-action="index" asp-controller="seller">
+            <i class='bx bx-home'></i>
+            <span class="links_name">Home</span>
+        </a>
+        <span class="tooltip">Home</span>
+    </li>
+    <li>
+        <a href="#">
+            <i class='bx bx-pie-chart-alt-2'></i>
+            <span class="links_name">Products Review</span>
+        </a>
+        <span class="tooltip">Products Review</span>
+    </li>
+    <li>
+        <a href="#">
+            <i class='fa fa-list-ol'></i>
+            <span class="links_name">Customer Review</span>
+        </a>
+        <span class="tooltip">Customer Review</span>
+    </li>
+    <li>
+        <a href="#">
+            <i class='bx bx-cart-alt'></i>
+            <span class="links_name">Order</span>
+        </a>
+        <span class="tooltip">Orders</span>
+    </li>
+    <li>
+        <a asp-action="Show_all_product" asp-controller="product">
+            <i class='fa fa-bar-chart'></i>
+            <span class="links_name">Show All product</span>
+        </a>
+        <span class="tooltip">Show All product</span>
+    </li>
+    <li>
+        <a asp-action="Add_product" asp-controller="product">
+            <i class='fa fa-plus-circle'></i>
+            <span class="links_name">Add new product</span>
+        </a>
+        <span class="tooltip">Add new product</span>
+    </li> 
+    <li>
+        <a>
+            <i class='fa fa-address-card-o'></i>
+            <span class="links_name">Portfolio</span>
+        </a>
+        <span class="tooltip">Portfolio</span>
+    </li>
+    <li class="profile">
+        <div class="profile-details">
+
+            <div class="name_job">
+                <div class="name">@User.Identity.Name</div>
+                
+            </div>
+        </div>
+        <div class="changestyle">
+            <a asp-action="logout" asp-controller="Account" style="text-decoration:none"> <i class='bx bx-log-out' id="log_out" asp-></i></a>
+
+        </div>
+        
+    </li>
+</ul>
