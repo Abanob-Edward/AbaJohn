@@ -2,13 +2,11 @@
 
 
 @{
-    if (User.IsInRole("seller"))
+
+    if (User.IsInRole("seller") || User.IsInRole("admin"))
     {
-        Layout = "_sellerLayout";
-    }
-    else if (User.IsInRole("admin"))
-    {
-        Layout = "_adminLayout";
+
+        Layout = "_businessAccLayout";
     }
 }
 

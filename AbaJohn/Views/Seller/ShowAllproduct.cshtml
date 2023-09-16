@@ -1,12 +1,9 @@
 ﻿@model List<Product>
 @{
-    if (User.IsInRole("seller"))
+    if (User.IsInRole("seller") || User.IsInRole("admin"))
     {
-        Layout = "_sellerLayout";
-    }
-    else if (User.IsInRole("admin"))
-    {
-        Layout = "_adminLayout";
+
+        Layout = "_businessAccLayout";
     }
 }
 <table class="table table-bordered table-hover" width="50%">
