@@ -1,65 +1,83 @@
 ﻿@model List<Product>
 @{
-    if (User.IsInRole("seller"))
-    {
-        Layout = "_sellerLayout";
-    }
-    else if (User.IsInRole("admin"))
+    var counter = Model.Count();
+    var i = 1;
+    if (User.IsInRole("seller") || User.IsInRole("admin"))
     {
         Layout = "_adminLayout";
     }
 }
-<table class="table table-bordered table-hover" width="50%">
-    <thead>Product table:</thead>
-    <tr>
-        <th>
-            Name
-        </th>
-        <th>
-            Price
-        </th>
-        <th>
-            Size
-        </th>
-        <th>
-            Quantity
-        </th>
-        <th>
-            Code
-        </th>
-        <th>
-            CategoryID
-        </th>
 
-    </tr>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@item.Name</td>
-            <td>@item.price</td>
-            <td>@item.Size</td>
-            <td>@item.Quantity</td>
-            <td>@item.Code</td>
-            <td>@item.CategoryID</td>
-            <td>
+<div class="container">
+    <div class="row" style="margin:30px; padding:10px">
+        <table class="table table-bordered">
 
+            <tr>
+                <th>
+                    #
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>
+                    Size
+                </th>
+                <th>
+                    Quantity
+                </th>
+                <th>
+                    Code
+                </th>
+                <th>
+                    Category Name
+                </th>
+                <th>
 
-                <a class="btn btn-success" asp-action="Edit_product" asp-controller="Product" asp-route-id="@item.ID">Edit</a>
-                <a class="btn btn-success" asp-action="Delete_product" asp-controller="Product" asp-route-id="@item.ID" onclick="ConfirmDelete(event)">Delete</a>
+                </th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                   
+                        <td>@i</td>
+                    @{
+                        i++;
+                    }
 
+                    <td>@item.Name</td>
+                    <td>@item.price</td>
+                    <td>@item.Size</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Code</td>
+                    <td>@item.category.Name</td>
+                    <td>
+                        <a class="btn btn-success" asp-action="Edit_product" asp-controller="Product" asp-route-id="@item.ID">Edit</a>
 
+                        </td>
 
-            </td>
-        </tr>
-    }
-</table>
+                    <td>
+                        <a class="btn btn-success" asp-action="Delete_product" asp-controller="Product" asp-route-id="@item.ID" onclick="ConfirmDelete(event)">Delete</a>
 
-<a class="btn btn-success" asp-action="Add_product" asp-controller="Product">Add new Product</a>
+                    </td>
+                </tr>
+                 
+            }
+        </table>
+        <a class="btn btn-success" asp-action="Add_product" asp-controller="Product">Add new Product</a>
 
-@if (User.IsInRole("admin"))
-{
- <a class="btn btn-success" asp-action="Add_categoery" asp-controller="Product">Add new Categoery</a>
-}
+        @if (User.IsInRole("admin"))
+        {
+            <a class="btn btn-success" asp-action="Add_categoery" asp-controller="Product">Add new Categoery</a>
+        }
+    </div>
+
+  
+
+</div>
+
 
 
 

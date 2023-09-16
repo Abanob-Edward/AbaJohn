@@ -16,7 +16,14 @@ namespace AbaJohn.Controllers
 
         public IActionResult Index()
         {
-
+            if (User.IsInRole("seller"))
+            {
+             return   RedirectToAction("index", "seller");
+            }else if (User.IsInRole("admin"))
+            {
+                return RedirectToAction("index", "Admin");
+            }
+           
             return View();
         }
 

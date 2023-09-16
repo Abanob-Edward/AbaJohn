@@ -1,7 +1,7 @@
 ﻿@model AbaJohn.ViewModel.categoeryViewModel
 
 @{
-    Layout = "_adminLayout";
+    Layout = "_businessAccLayout";
 }
 
 <h1>Add_categoery</h1>
@@ -41,5 +41,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

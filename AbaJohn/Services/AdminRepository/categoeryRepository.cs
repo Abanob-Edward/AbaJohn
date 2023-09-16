@@ -15,8 +15,9 @@ namespace AbaJohn.Services.AdminRepository
 
         //CURD
         public List<Category> get_all()
-        {
-            return context.categories.ToList();
+        { 
+            var cat = context.categories.ToList();
+            return (cat);
         }
         public Category get_category_id(int id)
         {

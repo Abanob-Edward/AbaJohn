@@ -1,9 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using AbaJohn.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace AbaJohn.ViewModel
 {
     public class userViewModel
     {
+
+
+        public string Id { get; set; }
         [Required]
         [DataType(DataType.Text)]
         public string user_name { get; set; }
@@ -31,6 +35,7 @@ namespace AbaJohn.ViewModel
 
         [Required]
         [DataType(DataType.ImageUrl)]
+        public IFormFile ImageFile { get; set; }
         public string image { get; set; }
 
 
@@ -49,5 +54,10 @@ namespace AbaJohn.ViewModel
         [DataType(DataType.PhoneNumber)]
         [MinLength(11)]
         public string phone_number { get; set; }
+
+        public Address? address { get; set; }
+
+        public string? Role1 { get; set; }
+
     }
 }

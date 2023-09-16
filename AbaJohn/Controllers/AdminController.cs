@@ -1,191 +1,93 @@
 ﻿using AbaJohn.Models;
+using AbaJohn.Services.AccountRepository;
 using AbaJohn.Services.AdminRepository;
 using AbaJohn.ViewModel;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 // Mody Medhat
 namespace AbaJohn.Controllers
 {
-   // [Authorize(Roles = "admin")]
+    // [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
-      
-        private readonly   IcategoeryRepository categoeryRepository;
-        private readonly   IProductRepository productRepository;
 
+        private readonly IcategoeryRepository categoeryRepository;
+        private readonly IProductRepository productRepository;
+        private readonly IAccountRepository accountRepository;
+        private readonly UserManager<ApplicationUser> usermanger; // بيكلم الداتا بيز 
+        private readonly SignInManager<ApplicationUser> signinmanger; //  بيعمل الكوكيز 
 
-        public AdminController( IcategoeryRepository _categoeryRepository, IProductRepository _productRepository)
+        public AdminController(IcategoeryRepository _categoeryRepository, IProductRepository _productRepository
+            , UserManager<ApplicationUser> _userManager, SignInManager<ApplicationUser> _signInManager,
+            IAccountRepository _accountRepository)
         {
-              
-              categoeryRepository= _categoeryRepository;
-              productRepository= _productRepository;
+            accountRepository = _accountRepository;
+            categoeryRepository = _categoeryRepository;
+            productRepository = _productRepository;
+            usermanger = _userManager;
+            signinmanger = _signInManager;
         }
-        [Authorize(Roles ="admin , seller")]
+
+        [Authorize(Roles = "admin , seller")]
         public IActionResult Index()
         {
-            return  View();
-        }
-   /*     [HttpGet]
-        public IActionResult Show_all_category()
-        {
-            List<Category> categories = categoeryRepository.get_all();
-            return View(categories);
-        }*/
-/*        public IActionResult Add_categoery()
-        {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Add_categoery(categoeryViewModel new_category_view)
-        {
-            if(ModelState.IsValid)
-            { 
-               
-               categoeryRepository.create(new_category_view);
-               return RedirectToAction("index", "home");
-            }
-            else
-            {
-                ModelState.AddModelError("", "Error!");
-            }
-
-            return View(new_category_view);
-
-        }*/
-        /*public IActionResult Edit(int id)
-        {
-            Category old_category = context.categories.FirstOrDefault(s => s.Id == id);
-            return View(old_category);
-        }
-
-        [HttpPost]
-        public IActionResult Edit([FromRoute]int id,Category old_category_view)
-        {
-            if (ModelState.IsValid)
-            {
-                
-                categoeryRepository.update(id,old_category_view);
-                return RedirectToAction("Show_all_category", "AdminServics");
-            }
-            else
-            {
-                ModelState.AddModelError("", "Error!");
-            }
-
-            return View(old_category_view);
-            }
-        public IActionResult Delete(int id)
-        {
-            try
-            {
-                categoeryRepository.Delete(id);
-                return RedirectToAction("Show_all_category");
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("Exception", ex.InnerException.Message);//
-
-                return RedirectToAction("Index","Home");
-            }
-        }
-
-*/
-
-
-        //________________________________________________________________________________________________________________
-        //    Product operations.
-
-
-
-        public IActionResult Show_all_product()
-        {
-           
-            List<Product> products = productRepository.get_all_product();
-            return View(products);
-        }
-
-        public IActionResult Add_product()
-        {
-           ViewBag.cat = categoeryRepository.get_all();
-            /*ViewBag.cat = context.categories.Select(x => new { x.Id, x.Name }).ToList();*/
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Add_product(productViewModel new_product)
-        {
-            if (ModelState.IsValid)
-            {
-
-                productRepository.create(new_product);
-
-                return RedirectToAction("Show_all_product", "AdminServics");
-
-            }
-            else
-            {
-                ModelState.AddModelError("", "Error!");
-            }
-
-            return View(new_product);
-
-        }
-
-
-
-        public IActionResult Edit_product(int id)
-        {
-          //  Product old_product = context.products.FirstOrDefault(s => s.ID == id);
-
-            ViewData["old_product"] = productRepository.get_product_byid(id);
-     
             return View();
         }
 
+        public IActionResult home()
+        {
+
+            return RedirectToAction("index", "home");
+        }
+        public IActionResult AdminProfile()
+        {
+
+            return View();
+        }
+        [HttpGet]
+        public IActionResult AddBussnessACount()
+        {
+            ViewBag.roles = accountRepository.get_all_roles();
+            return View();
+        }
+    
         [HttpPost]
-        public IActionResult Edit_product([FromRoute] int id, productViewModel old_product)
+        public async Task<IActionResult> AddBussnessACount(registrationuserViewModel newuser_account)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid == true)
             {
-                productRepository.update(id, old_product);
-                return RedirectToAction("Show_all_product", "AdminServics");
-            }
-            else
-            {
-                ModelState.AddModelError("", "Error!");
-            }
+                ApplicationUser user = new ApplicationUser();
 
-            return View(old_product);
+                user.UserName = newuser_account.user_name;
+                user.Name = newuser_account.name;
+                user.Email = newuser_account.email;
+                user.img = newuser_account.image;
+                user.age = newuser_account.age;
+                user.Gender = newuser_account.gender;
+                user.PhoneNumber = newuser_account.phone_number;
+
+                IdentityResult result = await usermanger.CreateAsync(user, newuser_account.password);
+
+                if (result.Succeeded == true)
+                {
+                    await signinmanger.SignInAsync(user, false);
+                    return RedirectToAction("index");
+
+                }
+                else
+                    foreach (var item in result.Errors)
+                    {
+                        ModelState.AddModelError("", item.Description);
+
+                    }
+
+            }
+            return View(newuser_account);
+
         }
-
-        public IActionResult Delete_product(int id)
-        {
-            try
-            {
-                productRepository.Delete(id);
-                return RedirectToAction("Show_all_product", "AdminServics");
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("Exception", ex.InnerException.Message);
-
-                return RedirectToAction("Index", "Home");
-            }
-        }
-
-
-        //____________________________________________________________________________________________________
-        //    productimage
-
-
-
-
-
-
-
-
-
 
     }
 }

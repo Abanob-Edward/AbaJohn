@@ -54,7 +54,7 @@ namespace AbaJohn.Migrations
                     b.HasIndex("User_id")
                         .IsUnique();
 
-                    b.ToTable("Address");
+                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("AbaJohn.Models.ApplicationUser", b =>
