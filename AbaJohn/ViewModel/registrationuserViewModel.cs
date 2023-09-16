@@ -2,7 +2,7 @@
 
 namespace AbaJohn.ViewModel
 {
-    public class userViewModel
+    public class registrationuserViewModel
     {
         [Required]
         [DataType(DataType.Text)]
@@ -50,6 +50,5 @@ namespace AbaJohn.ViewModel
         [MinLength(11)]
         public string phone_number { get; set; }
 
-        public string Role1 { get; set; }
     }
 }
