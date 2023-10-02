@@ -17,11 +17,16 @@ namespace AbaJohn.ViewModel
         public string Description { get; set; }
 
       
-        [Required(ErrorMessage = "Please select file")]
-        public IFormFile BaseImg { get; set; }
-        public string Img1 { get; set; }
-        public string Img2 { get; set; }
-        public string Img3 { get; set; }
+  /*      [Required(ErrorMessage = "Please select file")]*/
+        public IFormFile? BaseFileImg { get; set; }
+
+        public IFormFile? Img1File { get; set; }
+        public IFormFile? Img2File { get; set; }
+        public IFormFile? Img3File { get; set; }
+        public string? BaseImg { get; set; }
+        public string? Img1 { get; set; }
+        public string? Img2 { get; set; }
+        public string? Img3 { get; set; }
 
 
         public int category_id { get; set; } 

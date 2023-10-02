@@ -1,5 +1,7 @@
 ﻿using AbaJohn.Models;
+using AbaJohn.Services.AccountRepository;
 using AbaJohn.Services.AdminRepository;
+using AbaJohn.Services.user;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -47,10 +49,12 @@ namespace AbaJohn
             options.UseSqlServer("Data Source=.;Initial Catalog=AbaJohn;Integrated Security=True"));
 
 
-            // inject usermanger  -  singInmanager 
+           // inject usermanger  -  singInmanager 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddScoped<IcategoeryRepository, categoeryRepository>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+            builder.Services.AddScoped<Iuser, UserRepository>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

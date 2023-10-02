@@ -1,36 +1,48 @@
 ﻿@model List<Category>
 @{
-    Layout = "_adminLayout";
+    Layout = "_businessAccLayout";
 }
 
-<table class="table table-bordered table-hover" width="50%">
-    <thead>Category table:</thead>
-    <tr>
-        <th>
-            Name
-        </th>
-        <th>
-            Description
-        </th>
-        <th>
-            Type
-        </th>
-    </tr>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@item.Name</td>
-            <td>@item.Description</td>
-            <td>@item.type</td>
-            <td>
-                <a class="btn btn-success" asp-action="Edit" asp-controller="Category" asp-route-id="@item.Id">Edit</a>
-                <a class="btn btn-success" asp-action="Delete" asp-controller="Category" asp-route-id="@item.Id" onclick="ConfirmDelete(event)">Delete</a>
-            </td>
-        </tr>
-    }
-</table>
+<div class="container">
+    <div class="row" style="margin:30px; padding:10px">
+        <table class="table table-bordered" style=" border: 1px solid #000000;">
 
-<a class="btn btn-success" asp-action="Add_categoery" asp-controller="Category">Add new Categoery</a>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Type
+                </th>
+                <th colspan="2">
+                    Actions
+                </th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Description</td>
+                    <td>@item.type</td>
+                    <td>
+                        <a class="btn btn-dark" style="color:white; border: 1px solid red;  background-color: #000000" asp-action="Edit" asp-controller="Category" asp-route-id="@item.Id">Edit</a>
+                    </td>
+
+                    <td>
+                        <a class="btn btn-dark" style="color:white; border: 1px solid red;  background-color: #000000" asp-action="Delete" asp-controller="Category" asp-route-id="@item.Id" onclick="ConfirmDelete(event)">Delete</a>
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <a class="btn btn-dark" style="color:white; border: 1px solid red;  background-color: #000000" asp-action="Add_categoery" asp-controller="Category">Add new Categoery</a>
+
+    </div>
+</div>
+
 
 
 

@@ -6,7 +6,7 @@ namespace AbaJohn.Services.AdminRepository
 {
     public class categoeryRepository : IcategoeryRepository
     {
-       private readonly ApplicationDbContext context;
+        private readonly ApplicationDbContext context;
 
         public categoeryRepository(ApplicationDbContext _context)
         {

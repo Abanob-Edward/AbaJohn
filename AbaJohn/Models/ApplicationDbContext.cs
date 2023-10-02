@@ -38,7 +38,7 @@ namespace AbaJohn.Models
         public DbSet<Category> categories{ get; set; }
         public DbSet<CartItem> cartItems{ get; set; }
         public DbSet<ProductImage> productImages{ get; set; }
-        public DbSet<Address> Addresses{ get; set; }
+        public DbSet<Address> Addresses { get; set; }
 
     }
 
@@ -48,7 +48,9 @@ namespace AbaJohn.Models
 
         public string Name { get; set; }
         public int age { get; set; }
-        public string img { get; set; }
+
+        public String? img { get; set; }
+      
         public string Gender { get; set; }
       
         public Address address { get; set; }

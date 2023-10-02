@@ -54,7 +54,7 @@ namespace AbaJohn.Migrations
                     b.HasIndex("User_id")
                         .IsUnique();
 
-                    b.ToTable("Address");
+                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("AbaJohn.Models.ApplicationUser", b =>
@@ -121,7 +121,6 @@ namespace AbaJohn.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("img")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

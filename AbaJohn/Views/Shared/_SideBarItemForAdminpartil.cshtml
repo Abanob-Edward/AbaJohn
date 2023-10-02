@@ -1,4 +1,12 @@
-﻿
+﻿@{
+    ApplicationDbContext context = new ApplicationDbContext();
+    var image = "DefaultIMage.png";
+    if (User.Identity.Name != null)
+    {
+        image = context.Users.FirstOrDefault(x => x.UserName == User.Identity.Name).img;
+
+    }
+}
 <ul class="nav-list">
 
 
@@ -6,7 +14,7 @@
 
     <li style="text-align:center">
 
-        <img class="user-img" id="user-img" src="../img/bussaccimg/sellerimg/img_2391.jpg" alt="">
+        <img class="user-img" id="user-img" src="../img/bussaccimg/Adminimg/@image" alt="">
             
       
     </li>
@@ -22,35 +30,18 @@
     </li>
 
 
-    <li>
-        <a href="#">
-            <i class='bx bx-pie-chart-alt-2'></i>
-            <span class="links_name">Products Review</span>
-        </a>
-        <span class="tooltip">Products Review</span>
-    </li>
-
-
-
 
     <li>
         <a href="#">
             <i class='fa fa-list-ol'></i>
-            <span class="links_name">Customer Review</span>
+            <span class="links_name">Sellers Reviews</span>
         </a>
-        <span class="tooltip">Customer Review</span>
-    </li>
-    <li>
-        <a href="#">
-            <i class='bx bx-cart-alt'></i>
-            <span class="links_name">Order</span>
-        </a>
-        <span class="tooltip">Orders</span>
+        <span class="tooltip">Sellers Reviews</span>
     </li>
 
     <li>
-        <a asp-action="AddBussnessACount" asp-controller="Admin">
-            <i class='fa fa-list-ol'></i>
+        <a asp-action="AddBussnessACount" asp-controller="account">
+            <i class='fa fa-address-book'></i>
             <span class="links_name">Add Business Account </span>
         </a>
         <span class="tooltip">Add Business Account</span>
@@ -58,34 +49,47 @@
     <li>
 
 
-    <li>
-        <a asp-action="Show_all_category" asp-controller="Category">
-            <i class='fa fa-bar-chart'></i>
-            <span class="links_name">Show All Category</span>
+   
+
+    <li class="dropdown" id="dropList">
+        <a class="dropbtn">
+            <i class="fa fa-bar-chart"></i>
+            <span class="links_name ">Category</span>
         </a>
-        <span class="tooltip">Show All Category</span>
+
+        <div class="dropdown-content" id="dropItem">
+
+            <a class="dropm" asp-action="Show_all_category" asp-controller="Category">
+                <span class="Drop_links_name ">Show All Category</span>
+            </a>
+            <a class="dropm" asp-action="Add_categoery" asp-controller="Category">
+                <span class="Drop_links_name ">Add New Category</span>
+            </a>
+
+        </div>
     </li>
 
 
-    <li>
-        <a asp-action="Show_all_product" asp-controller="product">
-            <i class='fa fa-bar-chart'></i>
-            <span class="links_name">Show All product</span>
+
+
+    <li class="dropdown" id="dropList">
+        <a class="dropbtn">
+            <i class="fa fa-product-hunt"></i>
+            <span class="links_name ">Product</span>
         </a>
-        <span class="tooltip">Show All product</span>
+
+        <div class="dropdown-content" id="dropItem">
+
+            <a class="dropm" asp-action="Show_all_product" asp-controller="product">
+                <span class="Drop_links_name ">Show All product</span>
+            </a>
+            <a class="dropm" asp-action="Add_product" asp-controller="product">
+                <span class="Drop_links_name ">Add new product</span>
+            </a>
+
+        </div>
     </li>
 
-
-    <li>
-
-
-
-        <a asp-action="Add_product" asp-controller="product">
-            <i class='fa fa-plus-circle'></i>
-            <span class="links_name">Add new product</span>
-        </a>
-        <span class="tooltip">Add new product</span>
-    </li> 
 
     <li>
         <a>

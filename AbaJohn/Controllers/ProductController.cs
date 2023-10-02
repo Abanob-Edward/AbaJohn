@@ -21,7 +21,7 @@ namespace AbaJohn.Controllers
             categoeryRepository = _categoeryRepository;
         }
         [Authorize(Roles = "admin , seller")]
-          public IActionResult Show_all_product()
+        public IActionResult Show_all_product()
         {
 
             List<Product> products = productRepository.get_all_product();
@@ -44,33 +44,10 @@ namespace AbaJohn.Controllers
             ViewBag.cat = categoeryRepository.get_all();
             if (ModelState.IsValid)
             {
-                if(new_product.BaseImg != null)
-                {
-                    string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Files/productImg");
-
-                    //create folder if not exist
-                    if (!Directory.Exists(path))
-                        Directory.CreateDirectory(path);
-
-                    //get file extension
-                    FileInfo fileInfo = new FileInfo(new_product.BaseImg.FileName);
-                    string fileName = new_product.BaseImg.FileName + fileInfo.Extension;
-
-                    string fileNameWithPath = Path.Combine(path, fileName);
-
-                    using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
-                    {
-                        new_product.BaseImg.CopyTo(stream);
-                    }
-
-                }
-
-
-
 
                 productRepository.create(new_product);
 
-                return View(new_product);
+                return RedirectToAction("Show_all_product", "Product");
 
             }
             else
@@ -82,12 +59,13 @@ namespace AbaJohn.Controllers
 
         }
 
-
         [Authorize(Roles = "admin , seller")]
         public IActionResult Edit_product(int id)
         {
-            ViewData["old_product"] = productRepository.get_product_byid(id);
-            return View();
+            //ViewData["old_product"] = productRepository.get_product_byid(id);
+            ViewBag.cat = categoeryRepository.get_all();
+            var product = productRepository.get_product_byid(id);
+            return View(product);
         }
 
         [HttpPost]
@@ -97,7 +75,8 @@ namespace AbaJohn.Controllers
             if (ModelState.IsValid)
             {
                 productRepository.update(id, old_product);
-                return RedirectToAction("Show_all_product", "AdminServics");
+
+                return RedirectToAction("Show_all_product", "Product");
             }
             else
             {
@@ -112,7 +91,7 @@ namespace AbaJohn.Controllers
             try
             {
                 productRepository.Delete(id);
-                return RedirectToAction("Show_all_product", "AdminServics");
+                return RedirectToAction("Show_all_product", "product");
             }
             catch (Exception ex)
             {

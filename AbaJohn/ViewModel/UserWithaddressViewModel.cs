@@ -18,10 +18,10 @@ namespace AbaJohn.ViewModel
         public string email { get; set; }
 
 
-        [Required]
+
         [DataType(DataType.ImageUrl)]
-        public IFormFile ImageFile { get; set; }
-        public string image { get; set; }
+        public IFormFile? ImageFile { get; set; }
+        public string? image { get; set; }
 
 
         [Required]

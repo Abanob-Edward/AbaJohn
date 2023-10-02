@@ -33,7 +33,7 @@ namespace AbaJohn.Migrations
                 name: "img",
                 table: "AspNetUsers",
                 type: "nvarchar(max)",
-                nullable: false,
+                nullable: true,
                 defaultValue: "");
 
             migrationBuilder.CreateTable(

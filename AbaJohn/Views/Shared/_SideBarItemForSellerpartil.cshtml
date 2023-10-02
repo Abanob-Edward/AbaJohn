@@ -1,19 +1,28 @@
 ﻿
+
+
 <ul class="nav-list">
 
+    @{
+        ApplicationDbContext context = new ApplicationDbContext() ;
+        var image = "DefaultIMage.png";
+        if(User.Identity.Name != null)
+        {
+            image = context.Users.FirstOrDefault(x => x.UserName == User.Identity.Name).img;
 
-
+        }
+    }
+   
 
     <li style="text-align:center">
 
-        <img class="user-img" id="user-img" src="../img/bussaccimg/sellerimg/img_2391.jpg" alt="">
+        <img class="user-img" id="user-img" src="~/img/bussaccimg/sellerimg/@image" alt="">
             
       
     </li>
     <li >
         <h2 class="roleIcon"> SELLER</h2>
     </li>
-
     <li>
         <a asp-action="index" asp-controller="seller">
             <i class='bx bx-home'></i>
@@ -42,22 +51,31 @@
         </a>
         <span class="tooltip">Orders</span>
     </li>
-    <li>
-        <a asp-action="Show_all_product" asp-controller="product">
-            <i class='fa fa-bar-chart'></i>
-            <span class="links_name">Show All product</span>
+
+    <li class="dropdown"  id="dropList">
+        <a class="dropbtn" >
+            <i class="fa fa-product-hunt"></i>
+            <span class="links_name ">Product</span>
         </a>
-        <span class="tooltip">Show All product</span>
+
+        <div class="dropdown-content" id="dropItem">
+
+            <a class="dropm" asp-action="Show_all_product" asp-controller="product" > 
+                <span class="Drop_links_name ">Show All product</span>
+            </a>
+            <a class="dropm" asp-action="Add_product" asp-controller="product">
+                <span class="Drop_links_name ">Add new product</span>
+             </a>
+
+        </div>
     </li>
+
+
+
+
+
     <li>
-        <a asp-action="Add_product" asp-controller="product">
-            <i class='fa fa-plus-circle'></i>
-            <span class="links_name">Add new product</span>
-        </a>
-        <span class="tooltip">Add new product</span>
-    </li> 
-    <li>
-        <a>
+        <a asp-action="SellerProfile" asp-controller="seller">
             <i class='fa fa-address-card-o'></i>
             <span class="links_name">Portfolio</span>
         </a>

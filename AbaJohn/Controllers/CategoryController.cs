@@ -10,18 +10,22 @@ namespace AbaJohn.Controllers
     [Authorize(Roles = "admin")]
     public class CategoryController : Controller
     {
-         private readonly IcategoeryRepository categoeryRepository;
-         private readonly IProductRepository productRepository;
-     
+
+
+
+        private readonly IProductRepository productRepository;
+        private readonly IcategoeryRepository categoeryRepository;
+
         public CategoryController(IProductRepository _productRepository, IcategoeryRepository _categoeryRepository)
         {
-            _productRepository = productRepository;
-            _categoeryRepository = categoeryRepository;
+
+            productRepository = _productRepository;
+            categoeryRepository = _categoeryRepository;
         }
         [HttpGet]
         public IActionResult Show_all_category()
         {
-            List<Category> categories = categoeryRepository.get_all();
+            var categories = categoeryRepository.get_all();
             return View(categories);
         }
         public IActionResult Add_categoery()
@@ -59,7 +63,7 @@ namespace AbaJohn.Controllers
             {
 
                 categoeryRepository.update(id, old_category_view);
-                return RedirectToAction("Show_all_category", "AdminServics");
+                return RedirectToAction("Show_all_category", "Category");
             }
             else
             {
@@ -73,7 +77,7 @@ namespace AbaJohn.Controllers
             try
             {
                 categoeryRepository.Delete(id);
-                return RedirectToAction("Show_all_category");
+                return RedirectToAction("Show_all_category", "Category");
             }
             catch (Exception ex)
             {

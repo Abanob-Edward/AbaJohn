@@ -3,69 +3,128 @@
 
 @{
 
+
     if (User.IsInRole("seller") || User.IsInRole("admin"))
     {
 
         Layout = "_businessAccLayout";
     }
+
 }
 
 
-<h1>Edit_product</h1>
+<fieldset style="border: 1px solid #000000; padding: 20px; border-radius: 10px;  margin: 65px">
+    <legend style=" color:#000000; padding: 5px 10px; margin:4px 52px; width: 15%;" class="align-content-center">  Edit Product</legend>
 
 
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit_product" method="post">
+    <div class="continer">
+
+
+
+        <form asp-action="Edit_product" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" value="@ViewBag.old_product.Name" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label style="color:black" asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+
+                </div>
+                <div class="form-group col-md-6">
+                    <label style="color:black" asp-for="price" class="control-label"></label>
+                    <input asp-for="price" class="form-control" />
+                    <span asp-validation-for="price" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="price" class="control-label"></label>
-                <input asp-for="price" class="form-control" value="@ViewBag.old_product.price" />
-                <span asp-validation-for="price" class="text-danger"></span>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label style="color:black" asp-for="Size" class="control-label"></label>
+                    <input asp-for="Size" class="form-control" />
+                    <span asp-validation-for="Size" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label style="color:black" asp-for="Quantity" class="control-label"></label>
+                    <input asp-for="Quantity" class="form-control" />
+                    <span asp-validation-for="Quantity" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Size" class="control-label"></label>
-                <input asp-for="Size" class="form-control" value= value="@ViewBag.old_product.Size "   />
-                <span asp-validation-for="Size" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Quantity" class="control-label"></label>
-                <input asp-for="Quantity" class="form-control" value="@ViewBag.old_product.Quantity" />
-                <span asp-validation-for="Quantity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Code" class="control-label"></label>
-                <input asp-for="Code" class="form-control" value="@ViewBag.old_product.Code" />
-                <span asp-validation-for="Code" class="text-danger"></span>
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label style="color:black" asp-for="Code" class="control-label"></label>
+                    <input asp-for="Code" class="form-control" />
+                    <span asp-validation-for="Code" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label style="color:black" asp-for="BaseFileImg" class="control-label">Select Image </label>
+                    <input asp-for="BaseFileImg" name="BaseFileImg" class="form-control" />
+                    <span asp-validation-for="BaseFileImg" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">Select Category </label>
+                    <select style="color:black" name="category_id" id="category_id" class="form-control">
+
+                        @foreach (var category_item in ViewBag.cat)
+                        {
+
+                            <option value="@category_item.Id">@category_item.Name</option>
+                        }
+                    </select>
+                </div>
             </div>
 
 
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label style="color:black" asp-for="Img1File" class="control-label"></label>
+                    <input asp-for="Img1File" name="Img1File" class="form-control" />
+                    <span asp-validation-for="Img1File" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label style="color:black" asp-for="Img2File" class="control-label"></label>
+                    <input asp-for="Img2File" class="form-control" />
+                    <span asp-validation-for="Img2File" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label style="color:black" asp-for="Img3File" class="control-label"></label>
+                    <input asp-for="Img3File" class="form-control" />
+                    <span asp-validation-for="Img3File" class="text-danger"></span>
+                </div>
+            </div>
             <div class="form-group">
-                <label asp-for="category_id" class="control-label"></label>
-                <input asp-for="category_id" class="form-control"  />
-                <span asp-validation-for="category_id" class="text-danger"></span>
+                <label style="color:black" asp-for="title" class="control-label"></label>
+                <input asp-for="title" class="form-control" />
+                <span asp-validation-for="title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label style="color:black" asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
             </div>
 
-         
 
+            <div class="container" style="display: inline-block">
+                <div class="form-group" style="display: inline-block;">
+                    <input class="btn btn-dark" style="color:white; border: 1px solid red;  background-color: #000000" type="submit" value="ADD" class="btn btn-primary" />
+                </div>
 
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-success" />
+                <div style="display: inline-block;">
+                    <a class="btn btn-dark" style="color:white; border: 1px solid red;  background-color: #000000" asp-action="Index" asp-controller="Home" class="btn btn-primary"> Back </a>
+                </div>
             </div>
+
         </form>
+
     </div>
-</div>
+</fieldset>
 
-<div>
-    <a class="btn btn-success"  asp-action="Show_all_product" asp-controller="Product">Back to Product List</a>
-</div>
 
-@*@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}*@
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

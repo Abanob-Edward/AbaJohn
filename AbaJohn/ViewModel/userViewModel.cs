@@ -29,9 +29,10 @@ namespace AbaJohn.ViewModel
         [Compare("password")]
         public string confirm_password { get; set; }
 
-        [Required]
+
         [DataType(DataType.ImageUrl)]
-        public string image { get; set; }
+        public string? image { get; set; }
+        public IFormFile ImageFile { get; set; }
 
 
         [Required]
@@ -51,5 +52,8 @@ namespace AbaJohn.ViewModel
         public string phone_number { get; set; }
 
         public string Role1 { get; set; }
+
+        public bool rememberme  { get; set;}
+
     }
 }
