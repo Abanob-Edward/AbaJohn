@@ -12,6 +12,7 @@ namespace AbaJohn.Services.AccountRepository
     {
        // Abanob 
         //johnn
+        //3amkalzeroo
         private readonly ApplicationDbContext context;
 
         private readonly UserManager<ApplicationUser> usermanger; // بيكلم الداتا بيز 
