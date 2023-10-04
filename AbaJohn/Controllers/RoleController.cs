@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AbaJohn.Controllers
 {
-  //  [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin")]
     public class RoleController : Controller
     {
 
@@ -17,10 +17,6 @@ namespace AbaJohn.Controllers
             rolemanger = _rolemanger;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
 
         public IActionResult AddRole()
         {
@@ -38,7 +34,7 @@ namespace AbaJohn.Controllers
 
                 if(result.Succeeded)
                 {
-                    return View();
+                    return RedirectToAction("AddBussnessACount", "account");
                 }
                 else
                 {

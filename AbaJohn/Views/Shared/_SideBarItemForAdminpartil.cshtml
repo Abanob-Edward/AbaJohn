@@ -14,13 +14,13 @@
 
     <li style="text-align:center">
 
-        <img class="user-img" id="user-img" src="../img/bussaccimg/Adminimg/@image" alt="">
-            
+        <img class="user-img" id="user-img" src="../img/bussaccimg/Adminimg/@image" alt="">   
       
     </li>
     <li >
         <h2 class="roleIcon"> ADMIN </h2>
     </li>
+@*
     <li>
         <a asp-action="index" asp-controller="admin">
             <i class='bx bx-home'></i>
@@ -28,8 +28,14 @@
         </a>
         <span class="tooltip">Home</span>
     </li>
-
-
+*@
+    <li>
+        <a asp-action="Show_users" asp-controller="admin">
+            <i class='fa fa-address-book'></i>
+            <span class="links_name">Show Users </span>
+        </a>
+        <span class="tooltip"> Show Users </span>
+    </li>
 
     <li>
         <a href="#">
@@ -39,14 +45,27 @@
         <span class="tooltip">Sellers Reviews</span>
     </li>
 
-    <li>
-        <a asp-action="AddBussnessACount" asp-controller="account">
-            <i class='fa fa-address-book'></i>
-            <span class="links_name">Add Business Account </span>
+
+
+    <li class="dropdown" id="dropList">
+        <a class="dropbtn">
+            <i class="fa fa-product-hunt"></i>
+            <span class="links_name ">Business Account</span>
         </a>
-        <span class="tooltip">Add Business Account</span>
+
+        <div class="dropdown-content" id="dropItem">
+
+            <a class="dropm" asp-action="AddBussnessACount" asp-controller="account">
+                <span class="Drop_links_name ">Add New Business Account</span>
+            </a>
+            <a class="dropm" asp-action="AddRole" asp-controller="role">
+                <span class="Drop_links_name ">Add new Role </span>
+            </a>
+
+        </div>
     </li>
-    <li>
+
+
 
 
    
@@ -86,14 +105,13 @@
             <a class="dropm" asp-action="Add_product" asp-controller="product">
                 <span class="Drop_links_name ">Add new product</span>
             </a>
-
         </div>
     </li>
 
 
     <li>
-        <a>
-            <a asp-action="AdminProfile" asp-controller="Admin">
+     
+         <a asp-action="AdminProfile" asp-controller="Admin">
             <i class='fa fa-address-card-o'></i>
             <span class="links_name">Portfolio</span>
         </a>
