@@ -202,8 +202,7 @@ namespace AbaJohn.Controllers
                         }
                         user.img = ImgFileName;
                     }
-                    
-
+                   
                     user.UserName = newuser_account.user_name;
                     user.Name = newuser_account.name;
                     user.Email = newuser_account.email;
@@ -229,7 +228,7 @@ namespace AbaJohn.Controllers
                     {
                         //  role changed here 
                         await usermanger.AddToRoleAsync(user, newuser_account.Role);
-                        await signinmanger.SignInAsync(user, false);
+                     //  await signinmanger.SignInAsync(user, false);
                         await context.Addresses.AddAsync(user_address);
                         await context.SaveChangesAsync();
 
