@@ -72,7 +72,7 @@ namespace AbaJohn.Services.AccountRepository
                 if (result.Succeeded)
                 {
 
-                    await usermanger.AddToRoleAsync(user, newuser_account.Role1);
+                    await usermanger.AddToRoleAsync(user, newuser_account.Role);
                     await signinmanger.SignInAsync(user, false);
 
                 }

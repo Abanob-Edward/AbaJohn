@@ -75,37 +75,91 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-sm">
-                            <div class="form-group">
-                                <label asp-for="gender" class="control-label"></label>
-                                <select class="form-control" asp-for="gender">
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                </select>
-                                <span asp-validation-for="gender" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="form-group">
-                                <label asp-for="phone_number" class="control-label"></label>
-                                <input asp-for="phone_number" class="form-control" />
-                                <span asp-validation-for="phone_number" class="text-danger"></span>
-                            </div>
-                        </div>
 
+                   <div class="row">
+                                   <div class="col-sm">
+                    
+                                        <div class="form-group">
+                                            <label asp-for="phone_number" class="control-label"></label>
+                                            <input asp-for="phone_number" class="form-control" />
+                                            <span asp-validation-for="phone_number" class="text-danger"></span>
+                                        </div>
+                                   </div>
+                                 <div class="col-sm">
+                                            <div class="form-group">
+                                                <label asp-for="home_number" class="control-label"></label>
+                                                <input asp-for="home_number" class="form-control" />
+                                                <span asp-validation-for="home_number" class="text-danger"></span>
+                                            </div>
+
+                            
+
+                                  </div>
+                    </div>
+                    
+
+
+                    <div class="row">
+                                <div class="col-sm">
+                     
+                                            <div class="form-group">
+                                                <label asp-for="country" class="control-label"></label>
+                                                <input asp-for="country" class="form-control" />
+                                                <span asp-validation-for="country" class="text-danger"></span>
+                                            </div>
+
+                                 </div>
+                                <div class="col-sm">
+                                            <div class="form-group">
+                                                <label asp-for="city" class="control-label"></label>
+                                                <input asp-for="city" class="form-control" />
+                                                <span asp-validation-for="city" class="text-danger"></span>
+                                            </div>
+
+                               
+
+                                  </div>
+                    </div>
+
+                    <div class="row">
+                                    <div class="col-sm">
+                      
+                                                <div class="form-group">
+                                                    <label asp-for="street_name" class="control-label"></label>
+                                                    <input asp-for="street_name" class="form-control" />
+                                                    <span asp-validation-for="street_name" class="text-danger"></span>
+                                                </div>
+                                     </div>
+                                    <div class="col-sm">
+                                                    <div class="form-group">
+                                                        <label asp-for="gender" class="control-label"></label>
+                                                        <select class="form-control" asp-for="gender">
+                                                            <option value="male">Male</option>
+                                                            <option value="female">Female</option>
+                                                        </select>
+                                                        <span asp-validation-for="gender" class="text-danger"></span>
+                                                    </div>
+                      
+
+                              
+
+                                    </div>
                     </div>
 
                     <div class="form-group">
-                        <label asp-for="Role1" class="control-label">Role</label>
-                        <select class="form-control" asp-for="Role1">
+                        <label asp-for="Role" class="control-label">Role</label>
+                        <select class="form-control" asp-for="Role">
                             @foreach (var item in ViewBag.roles)
                             {
                                 <option>@item.Name</option>
                             }
                         </select>
-                        <span asp-validation-for="Role1" class="text-danger"></span>
+                        <span asp-validation-for="Role" class="text-danger"></span>
                     </div>
+
+
+
+
 
                     <div class="container" style="display: inline-block">
                         <div class="form-group" style="display: inline-block;">
