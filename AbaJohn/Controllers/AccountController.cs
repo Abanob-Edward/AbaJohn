@@ -158,7 +158,6 @@ namespace AbaJohn.Controllers
             return View();
         }
 
-
         public string GenerateUniqueImageName()
         {
             // Get the current date and time
@@ -177,6 +176,8 @@ namespace AbaJohn.Controllers
         {
 
             ApplicationUser user = new ApplicationUser();
+            Address user_address = new Address();
+            ApplicationDbContext context = new ApplicationDbContext();
 
             string ImgFileName = "";
             if (ModelState.IsValid)
@@ -201,7 +202,7 @@ namespace AbaJohn.Controllers
                         }
                         user.img = ImgFileName;
                     }
-
+                    
 
                     user.UserName = newuser_account.user_name;
                     user.Name = newuser_account.name;
@@ -210,14 +211,28 @@ namespace AbaJohn.Controllers
                     user.age = newuser_account.age;
                     user.Gender = newuser_account.gender;
                     user.PhoneNumber = newuser_account.phone_number;
+                 
+                    user_address.home_number = newuser_account.home_number;
+                    user_address.country = newuser_account.country;
+                    user_address.city = newuser_account.city;
+                    user_address.street_name = newuser_account.street_name;
+
+
+                    var user_id = user.Id;
+                    user_address.User_id = user_id;
+
+                  
 
                     IdentityResult result = await usermanger.CreateAsync(user, newuser_account.password);
 
                     if (result.Succeeded)
                     {
 
-                        await usermanger.AddToRoleAsync(user, newuser_account.Role1);
+                        await usermanger.AddToRoleAsync(user, newuser_account.Role);
                         await signinmanger.SignInAsync(user, false);
+                        await context.Addresses.AddAsync(user_address);
+                        await context.SaveChangesAsync();
+
                         return RedirectToAction("index", "home");
                     }
                     else
@@ -238,8 +253,7 @@ namespace AbaJohn.Controllers
 
 
         }
-    
-    public async Task<IActionResult> logout()
+        public async Task<IActionResult> logout()
         {
             await signinmanger.SignOutAsync();
             return RedirectToAction("login", "Account");

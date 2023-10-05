@@ -4,6 +4,8 @@ namespace AbaJohn.ViewModel
 {
     public class userViewModel
     {
+
+
         [Required]
         [DataType(DataType.Text)]
         public string user_name { get; set; }
@@ -51,9 +53,21 @@ namespace AbaJohn.ViewModel
         [MinLength(11)]
         public string phone_number { get; set; }
 
-        public string Role1 { get; set; }
+        public string Role { get; set; }
 
+        public string country { get; set; }
+
+        public string city { get; set; }
+
+        public int home_number { get; set; }
+
+        public string street_name { get; set; }
+
+     
         public bool rememberme  { get; set;}
+
+        
+
 
     }
 }
