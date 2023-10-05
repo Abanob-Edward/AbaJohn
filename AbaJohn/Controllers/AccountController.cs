@@ -184,7 +184,17 @@ namespace AbaJohn.Controllers
             {
                 try
                 {
-                    string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Files/Newuser_business_account");
+                    string ProfileImage = "";
+                    string path = "";
+
+                    if (newuser_account.Role == "admin")
+                    {
+                        path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/BussAccImg/Adminimg");
+                    }
+                    else if (newuser_account.Role == "seller")
+                    {
+                        path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/BussAccImg/SellerImg");
+                    }
 
                     // Create folder if not exist
                     if (!Directory.Exists(path))
@@ -229,7 +239,7 @@ namespace AbaJohn.Controllers
                     {
                         //  role changed here 
                         await usermanger.AddToRoleAsync(user, newuser_account.Role);
-                        await signinmanger.SignInAsync(user, false);
+                        //await signinmanger.SignInAsync(user, false);
                         await context.Addresses.AddAsync(user_address);
                         await context.SaveChangesAsync();
 
