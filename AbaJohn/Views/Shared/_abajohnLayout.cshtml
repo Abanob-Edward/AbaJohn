@@ -49,7 +49,20 @@
     <link rel="stylesheet" href="~/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="~/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="~/css/style.css" type="text/css">
+    <style>
+        #navbar {
+            position: fixed;
+            position: fixed;
+            z-index: 9;
+            top: 0px;
+            width: 100%;
+          /*  background: white;*/
+        }
+        
 
+
+
+    </style>
 </head>
 
 <body>
@@ -84,19 +97,19 @@
         </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__text">
-            <p>Free shipping, 30-day return or refund guarantee.</p>
+           
         </div>
     </div>
     <!-- Offcanvas Menu End -->
 
     <!-- Header Section Begin -->
-    <header class="header">
-        <div class="header__top">
+    <header class="header" id="navbar">
+        <div class="header__top" >
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 col-md-7">
                         <div class="header__top__left">
-                            <p>Free shipping, 30-day return or refund guarantee.</p>
+                           @* <p>Free shipping, 30-day return or refund guarantee.</p>*@
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-5">
@@ -117,55 +130,57 @@
                 </div>
             </div>
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-3">
+        <div class="sticky">
+             <div class="container" >
+                <div class="row">
+                    <div class="col-lg-3 col-md-3">
                   
-                    <div class="header__logo" style="padding: 8px 10px 3px;">
-                        <a href="./index.html"><img src="../img/logo.png" alt=""></a>
+                        <div class="header__logo" style="padding: 8px 10px 3px;">
+                            <a href="./index.html"><img src="../img/logo.png" alt=""></a>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-6 col-md-6">
-                    <nav class="header__menu mobile-menu">
-                        <ul>
-                            <li class="active"><a href="./index.html">@loclizer["Home"]</a></li>
-                            <li>
-                                <a href="#">Category</a>
-                                <ul class="dropdown">
-                                    <li><a href="./about.html">Men</a></li>
-                                    <li><a href="./shop-details.html">Wommen</a></li>
-                                    <li><a href="./shopping-cart.html">Kids</a></li>
+                    <div class="col-lg-6 col-md-6">
+                        <nav class="header__menu mobile-menu">
+                            <ul>
+                                <li class="active"><a href="./index.html">@loclizer["Home"]</a></li>
+                                <li>
+                                    <a href="#">Category</a>
+                                    <ul class="dropdown">
+                                        <li><a href="./about.html">Men</a></li>
+                                        <li><a href="./shop-details.html">Wommen</a></li>
+                                        <li><a href="./shopping-cart.html">Kids</a></li>
                              
-                                </ul>
-                            </li>
+                                    </ul>
+                                </li>
                      
-                            <li>
-                                <a href="#">@loclizer["Pages"]</a>
-                                <ul class="dropdown">
-                                    <li><a href="./about.html">@loclizer["Aboutus"]</a></li>
-                                    <li><a href="./shop-details.html">Shop Details</a></li>
-                                    <li><a href="./shopping-cart.html">Shopping Cart</a></li>
+                                <li>
+                                    <a href="#">@loclizer["Pages"]</a>
+                                    <ul class="dropdown">
+                                        <li><a href="./about.html">@loclizer["Aboutus"]</a></li>
+                                        <li><a href="./shop-details.html">Shop Details</a></li>
+                                        <li><a href="./shopping-cart.html">Shopping Cart</a></li>
                                  
-                                    <li><a href="./blog-details.html">@loclizer["Contacts"]</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="./shop.html">@loclizer["Shop"]</a></li>
+                                        <li><a href="./blog-details.html">@loclizer["Contacts"]</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="./shop.html">@loclizer["Shop"]</a></li>
                            
-                            <li style="display:none"><a asp-action="index" asp-controller="Localization">@loclizer["Loc"] </a></li>
+                                <li style="display:none"><a asp-action="index" asp-controller="Localization">@loclizer["Loc"] </a></li>
                          
-                        </ul>
-                    </nav>
-                </div>
-                <div class="col-lg-3 col-md-3">
-                    <div class="header__nav__option">
-                        <a href="#" class="search-switch"><img src="../img/icon/search.png" alt=""></a>
-                        <a href="#"><img src="../img/icon/heart.png" alt=""></a>
-                        <a href="#"><img src="../img/icon/cart.png" alt=""> <span>0</span></a>
-                        <div class="price">$0.00</div>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-lg-3 col-md-3">
+                        <div class="header__nav__option">
+                            <a href="#" class="search-switch"><img src="../img/icon/search.png" alt=""></a>
+                            <a href="#"><img src="../img/icon/heart.png" alt=""></a>
+                            <a href="#"><img src="../img/icon/cart.png" alt=""> <span>0</span></a>
+                            <div class="price">$0.00</div>
+                        </div>
                     </div>
                 </div>
+              <div class="canvas__open"><i class="fa fa-bars"></i></div>
             </div>
-            <div class="canvas__open"><i class="fa fa-bars"></i></div>
         </div>
     </header>
     <!-- Header Section End -->
@@ -274,3 +289,16 @@
 </body>
 
 </html>
+
+@*<script>
+    // When the user scrolls down 20px from the top of the document, slide down the navbar
+    window.onscroll = function () { scrollFunction() };
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 1 || document.documentElement.scrollTop > 1) {
+            document.getElementById("navbar").style.top = "0";
+        } else {
+            document.getElementById("navbar").style.top = "-50px";
+        }
+    }
+</script>*@

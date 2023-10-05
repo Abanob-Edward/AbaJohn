@@ -10,9 +10,9 @@ namespace AbaJohn.Services.AccountRepository
 {
     public class AccountRepository : IAccountRepository
     {
-       // Abanob 
-        //johnn
-        //3amkalzeroo
+        //  Abanob 
+        //  johnn
+        //  3amkalzeroo
         private readonly ApplicationDbContext context;
 
         private readonly UserManager<ApplicationUser> usermanger; // بيكلم الداتا بيز 
