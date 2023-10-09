@@ -48,7 +48,7 @@
     </div>
         @*partial view here *@
          @if (User.IsInRole("seller") )
-         {
+        {
             <partial name="_SideBarItemForSellerpartil" />
         }
         else if (User.IsInRole("admin"))

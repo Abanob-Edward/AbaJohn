@@ -26,6 +26,7 @@
         <img src="~/assets/img/login-bg.png" alt="image" class="login__bg">
 
         <form asp-action="login" class="login__form">
+            <div asp-validation-summary="All" class="text-danger"></div>
             <h1 class="login__title">Login</h1>
 
             <div class="login__inputs">
