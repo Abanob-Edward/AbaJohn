@@ -56,44 +56,7 @@
     <link rel="stylesheet" href="~/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="~/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="~/css/style.css" type="text/css">
-    <style>
- 
-        header {
-            background: #ddd;
-            height: 50px;
-            position: fixed;
-            z-index: 9;
-            top: 0;
-            transition: top 0.2s ease-in-out;
-            width: 100%;
-            text-align: center;
-        }
 
-            header li {
-                list-style: none;
-                display: inline-block;
-            }
-
-            header a {
-                color: #222;
-                text-decoration: none;
-                padding: 0 15px;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-            }
-
-        .nav-up {
-            top: -50px;
-        }
-
-        main {
-            height: 2000px;
-        }
-
-     
-
-
-    </style>
 </head>
 
 <body>
@@ -334,42 +297,6 @@
 </html>
 
 <script>
-    // Hide header on scroll down
-    var didScroll;
-    var lastScrollTop = 0;
-    var delta = 5;
-    var navbarHeight = $('header').outerHeight();
-
-    $(window).scroll(function (event) {
-        didScroll = true;
-    });
-
-    setInterval(function () {
-        if (didScroll) {
-            hasScrolled();
-            didScroll = false;
-        }
-    }, 250);
-
-    function hasScrolled() {
-        var st = $(this).scrollTop();
-
-        // Make scroll more than delta
-        if (Math.abs(lastScrollTop - st) <= delta)
-            return;
-
-        // If scrolled down and past the navbar, add class .nav-up.
-        if (st > lastScrollTop && st > navbarHeight) {
-            // Scroll Down
-            $('header').removeClass('nav-down').addClass('nav-up');
-        } else {
-            // Scroll Up
-            if (st + $(window).height() < $(document).height()) {
-                $('header').removeClass('nav-up').addClass('nav-down');
-            }
-        }
-
-        lastScrollTop = st;
-    }
+  
 
 </script>

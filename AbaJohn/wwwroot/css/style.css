@@ -3849,3 +3849,34 @@ ol {
 		height: 250px;
 	}
 }
+header {
+	background: #ddd;
+	height: 50px;
+	position: fixed;
+	z-index: 9;
+	top: 0;
+	transition: top 0.2s ease-in-out;
+	width: 100%;
+	text-align: center;
+}
+
+	header li {
+		list-style: none;
+		display: inline-block;
+	}
+
+	header a {
+		color: #222;
+		text-decoration: none;
+		padding: 0 15px;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+	}
+
+.nav-up {
+	top: -50px;
+}
+
+main {
+	height: 2000px;
+}
