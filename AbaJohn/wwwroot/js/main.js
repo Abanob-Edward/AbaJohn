@@ -1,4 +1,26 @@
+$(".saleBanner").on("click", function () {
+    $('.saleBanner').removeAttr('style');
+    $(this).css('color', '#111111');
+    $(this).css('font-weight', '700');
+    $(this).css('margin-left', '12px');
+    console.log($(this).attr('id'));
+    if ($(this).attr('id') == 'Bags') {
+        document.getElementById('BagsImg').style.display = 'Block'
+        document.getElementById('GlassImg').style.display = 'none'
+        document.getElementById('watcheImg').style.display = 'none'
+    }
+    if ($(this).attr('id') == 'Glasses') {
+        document.getElementById('GlassImg').style.display = 'Block'
+        document.getElementById('BagsImg').style.display = 'none'
+        document.getElementById('watcheImg').style.display = 'none'
+    }
+    if ($(this).attr('id') == 'watches') {
+        document.getElementById('watcheImg').style.display = 'Block'
+        document.getElementById('BagsImg').style.display = 'none'
+        document.getElementById('GlassImg').style.display = 'none'
+    }
 
+});
 
 // Hide header on scroll down
 var didScroll;
