@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AbaJohn.Controllers
 {
-    [Authorize(Roles = "admin")]
+    //[Authorize(Roles = "admin")]
     public class RoleController : Controller
     {
 

@@ -22,9 +22,4 @@ namespace AbaJohn.Models
         public List<ProductImage> images { get; set; }
     }
 
-
-    enum prodeuctGender
-    {
-        Men , wommen , kides
-    }
 }

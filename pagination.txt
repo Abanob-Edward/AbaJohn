@@ -1,0 +1,81 @@
+    <tr>
+        <td colspan="3">
+            @{
+                int PrevPageNO = ViewBag.PageNo - 1;
+                if (PrevPageNO <= 0)
+                {           
+                    PrevPageNO = 1;
+                }
+                int NextPageNo = ViewBag.PageNo + 1;
+                if (NextPageNo > ViewBag.NoOfPage)
+                {
+                    NextPageNo = ViewBag.NoOfPage;
+                }
+
+           
+            }
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Category" asp-action="Show_all_category" asp-route-PageNo=@PrevPageNO>
+                        Pervious
+                    </a>
+                </li>
+                @for (int i = 0; i < ViewBag.NoOfPage; i++)
+                {
+                    if ((i + 1) == ViewBag.PageNo)
+                    {
+                        <li class="page-item active">
+                            <a class="page-link"
+                                asp-controller="Category" asp-action="Show_all_category" asp-route-PageNo=@(i+1)>
+                                @(i+1)
+                            </a>
+                        </li>
+                    }else
+                    {
+                        <li class="page-item ">
+                            <a class="page-link"
+                               asp-controller="Category" asp-action="Show_all_category" asp-route-PageNo=@(i+1)>
+                                @(i + 1)
+                            </a>
+                        </li>
+                    }
+                }
+                <li class="page-item ">
+                    <a class="page-link"
+                       asp-controller="Category" asp-action="Show_all_category" asp-route-PageNo=@NextPageNo>
+                       Next
+                    </a>
+                </li>
+
+            </ul>
+
+           
+        </td>
+
+
+
+    </tr>
+
+
+
+//controller
+
+
+        public IActionResult Show_all_category(int PageNo=1)
+        {
+            var categories = categoeryRepository.get_all();
+
+            int NoOfRecordPerPage = 2;
+            int NoOfPage =Convert.ToInt32(Math.Ceiling(Convert.ToDouble(categories.Count) / Convert.ToDouble(NoOfRecordPerPage)));
+
+            int NoOfRecordToSkip = (PageNo-1) * NoOfRecordPerPage;
+
+            ViewBag.PageNo = PageNo;
+            ViewBag.NoOfPage = NoOfPage;
+
+            categories = categories.Skip(NoOfRecordToSkip).Take(NoOfRecordPerPage).ToList();
+
+
+
+            return View(categories);
+        }

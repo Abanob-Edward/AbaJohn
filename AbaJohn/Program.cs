@@ -45,7 +45,7 @@ namespace AbaJohn
             // configer the _context 
             /*            builder.Services.AddTransient<ITIEntites, ITIEntites>();*/
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer("Data Source=.;Initial Catalog=project;Integrated Security=True"));
+            options.UseSqlServer("Data Source=.;Initial Catalog=AbaJohn;Integrated Security=True"));
 
 
            // inject usermanger  -  singInmanager 

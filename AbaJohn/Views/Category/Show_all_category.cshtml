@@ -36,6 +36,66 @@
                     </td>
                 </tr>
             }
+
+            <tr>
+                <td colspan="3">
+                    @{
+                        int PrevPageNO = ViewBag.PageNo - 1;
+                        if (PrevPageNO <= 0)
+                        {           
+                            PrevPageNO = 1;
+                        }
+                        int NextPageNo = ViewBag.PageNo + 1;
+                        if (NextPageNo > ViewBag.NoOfPage)
+                        {
+                            NextPageNo = ViewBag.NoOfPage;
+                        }
+
+                   
+                    }
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item">
+                            <a class="page-link" asp-controller="Category" asp-action="Show_all_category" asp-route-PageNo=@PrevPageNO>
+                                Pervious
+                            </a>
+                        </li>
+                        @for (int i = 0; i < ViewBag.NoOfPage; i++)
+                        {
+                            if ((i + 1) == ViewBag.PageNo)
+                            {
+                                <li class="page-item active">
+                                    <a class="page-link"
+                                        asp-controller="Category" asp-action="Show_all_category" asp-route-PageNo=@(i+1)>
+                                        @(i+1)
+                                    </a>
+                                </li>
+                            }else
+                            {
+                                <li class="page-item ">
+                                    <a class="page-link"
+                                       asp-controller="Category" asp-action="Show_all_category" asp-route-PageNo=@(i+1)>
+                                        @(i + 1)
+                                    </a>
+                                </li>
+                            }
+                        }
+                        <li class="page-item ">
+                            <a class="page-link"
+                               asp-controller="Category" asp-action="Show_all_category" asp-route-PageNo=@NextPageNo>
+                               Next
+                            </a>
+                        </li>
+
+                    </ul>
+
+                   
+                </td>
+
+
+
+            </tr>
+
+
         </table>
 
         <a class="btn btn-dark" style="color:white; border: 1px solid red;  background-color: #000000" asp-action="Add_categoery" asp-controller="Category">Add new Categoery</a>

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AbaJohn.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230901103003_test")]
-    partial class test
+    [Migration("20231029112050_lastedit2")]
+    partial class lastedit2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -56,7 +56,7 @@ namespace AbaJohn.Migrations
                     b.HasIndex("User_id")
                         .IsUnique();
 
-                    b.ToTable("Address");
+                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("AbaJohn.Models.ApplicationUser", b =>
@@ -123,7 +123,6 @@ namespace AbaJohn.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("img")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
