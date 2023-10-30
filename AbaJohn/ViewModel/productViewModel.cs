@@ -5,7 +5,7 @@ namespace AbaJohn.ViewModel
 {
     public class productViewModel
     {
-       
+        public int ID { get; set; }
         public string Name { get; set; }
         public double price { get; set; }
         public string Size { get; set; }

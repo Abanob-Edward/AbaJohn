@@ -1,6 +1,8 @@
 ﻿using AbaJohn.Models;
 using AbaJohn.ViewModel;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Transactions;
@@ -10,29 +12,70 @@ namespace AbaJohn.Services.AdminRepository
     public class ProductRepository : IProductRepository
     {
        private readonly ApplicationDbContext context;
+        private readonly IMapper _mapper;
 
-        public ProductRepository(ApplicationDbContext _context)
+      
+
+        public ProductRepository(ApplicationDbContext _context, IMapper mapper)
         {
             context = _context;
+            _mapper = mapper;
         }
 
-        public string GenerateUniqueImageName()
-        {
-            // Get the current date and time
-            DateTime now = DateTime.Now;
-
-            // Generate a unique name using a combination of timestamp and random number
-            string uniqueName = $"{now:yyyyMMddHHmmss}_{Guid.NewGuid().ToString("N").Substring(0, 8)}";
-
-            // Return the unique name
-            return uniqueName;
-        }
-
+    
         //CURD
         public List<Product> get_all_product()
         {
             return context.products.Include(x=>x.category).ToList();
         }
+
+        public List<productViewModel> GetProductsByGender(string GenderName)
+        {
+           var productlst = context.products
+                .Where(p => p.prodeuctGender.ToLower() == GenderName.ToLower())
+                .Include(I =>I.images).Include(c=>c.category)
+                .ToList();
+
+
+            var data = _mapper.Map<List<productViewModel>>(productlst);
+   
+            /*   List <productViewModel> ProductlistVm = new List<productViewModel>();
+
+               foreach (var item in productlst)
+               {
+                   ProductlistVm.Add(*//*new productViewModel
+                   {
+                       ID = item.ID,
+                       Name = item.Name,
+                       price = item.price,
+                       Size = item.Size,
+                       Quantity = item.Quantity,
+                       Code = item.Code,
+                       title = item.title,
+                       Description = item.Description,
+                       category_id = item.CategoryID,
+
+                       BaseImg = item.images.FirstOrDefault()?.BaseImg,
+                       Img1    = item.images.FirstOrDefault()?.Img1,
+                       Img2    = item.images.FirstOrDefault()?.Img2,
+                       Img3    = item.images.FirstOrDefault()?.Img3
+                   }*//*
+
+                       _mapper.Map<productViewModel>(item)
+                       ) ;
+
+
+               }
+              return ProductlistVm;
+                    */
+
+
+
+            return data;
+
+
+        }
+
         public productViewModel get_product_byid(int id)
         {
             productViewModel product_vw = new productViewModel();
@@ -63,6 +106,18 @@ namespace AbaJohn.Services.AdminRepository
             return null;
 
         }
+        public string GenerateUniqueImageName()
+        {
+            // Get the current date and time
+            DateTime now = DateTime.Now;
+
+            // Generate a unique name using a combination of timestamp and random number
+            string uniqueName = $"{now:yyyyMMddHHmmss}_{Guid.NewGuid().ToString("N").Substring(0, 8)}";
+
+            // Return the unique name
+            return uniqueName;
+        }
+
         public int update(int id, productViewModel old_product)
         {
             Product new_product = context.products.FirstOrDefault(s => s.ID == id);
@@ -251,15 +306,15 @@ namespace AbaJohn.Services.AdminRepository
                     productImage.Img3 = img3FileName;
                 }
 
-                new_product.Name = new_product_view.Name;
-                new_product.price = new_product_view.price;
-                new_product.Quantity = new_product_view.Quantity;
-                new_product.Size = new_product_view.Size;
-                new_product.Code = new_product_view.Code;
-                new_product.title = new_product_view.title;
-                new_product.Description = new_product_view.Description;
+                new_product.Name           = new_product_view.Name;
+                new_product.price          = new_product_view.price;
+                new_product.Quantity       = new_product_view.Quantity;
+                new_product.Size           = new_product_view.Size;
+                new_product.Code           = new_product_view.Code;
+                new_product.title          = new_product_view.title;
+                new_product.Description    = new_product_view.Description;
                 new_product.prodeuctGender = "Wommen";
-                new_product.CategoryID = new_product_view.category_id;
+                new_product.CategoryID      = new_product_view.category_id;
                 context.products.Add(new_product);
 
                 context.SaveChanges();
@@ -285,8 +340,6 @@ namespace AbaJohn.Services.AdminRepository
             return 0;
         }
 
-
-
         public int Delete(int id)
         {
             Product product = context.products.FirstOrDefault(s => s.ID == id);
@@ -297,5 +350,6 @@ namespace AbaJohn.Services.AdminRepository
             return delete;
         }
 
+      
     }
 }

@@ -54,6 +54,7 @@ namespace AbaJohn
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<IAccountRepository, AccountRepository>();
             builder.Services.AddScoped<Iuser, UserRepository>();
+            builder.Services.AddAutoMapper(typeof(Program));
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
