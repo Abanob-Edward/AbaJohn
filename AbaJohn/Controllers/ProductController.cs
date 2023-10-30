@@ -27,6 +27,15 @@ namespace AbaJohn.Controllers
             List<Product> products = productRepository.get_all_product();
             return View(products);
         }
+        public IActionResult ShowProductsByGender(string ProductGender)
+        {
+            if (ProductGender == null || ProductGender == "")
+                RedirectToAction("index", "home");
+
+            var productList = productRepository.GetProductsByGender(ProductGender);
+            return View(productList); 
+        }
+     
         [Authorize(Roles = "admin , seller")]
         public IActionResult Add_product()
         {

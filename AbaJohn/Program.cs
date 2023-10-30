@@ -45,7 +45,7 @@ namespace AbaJohn
             // configer the _context 
             /*            builder.Services.AddTransient<ITIEntites, ITIEntites>();*/
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer("Data Source=.;Initial Catalog=project;Integrated Security=True"));
+            options.UseSqlServer("Data Source=.;Initial Catalog=AbaJohn;Integrated Security=True"));
 
 
            // inject usermanger  -  singInmanager 
@@ -54,6 +54,7 @@ namespace AbaJohn
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<IAccountRepository, AccountRepository>();
             builder.Services.AddScoped<Iuser, UserRepository>();
+            builder.Services.AddAutoMapper(typeof(Program));
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

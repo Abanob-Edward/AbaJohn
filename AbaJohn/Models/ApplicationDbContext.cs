@@ -27,7 +27,7 @@ namespace AbaJohn.Models
         //this is just overlode u can delete it if u want 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=project;Integrated Security=True");
+            optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=AbaJohn;Integrated Security=True");
         }
 
 
