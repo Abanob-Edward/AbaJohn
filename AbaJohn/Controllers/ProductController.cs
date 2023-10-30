@@ -27,13 +27,31 @@ namespace AbaJohn.Controllers
             List<Product> products = productRepository.get_all_product();
             return View(products);
         }
-        public IActionResult ShowProductsByGender(string ProductGender)
+        public IActionResult ShowProductsByGender(string ProductGender, int PageNo = 1)
         {
             if (ProductGender == null || ProductGender == "")
                 RedirectToAction("index", "home");
 
             var productList = productRepository.GetProductsByGender(ProductGender);
+
+
+            int NoOfRecordPerPage = 2;
+            int NoOfPage = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(productList.Count) / Convert.ToDouble(NoOfRecordPerPage)));
+
+            int NoOfRecordToSkip = (PageNo - 1) * NoOfRecordPerPage;
+
+            ViewBag.PageNo = PageNo;
+            ViewBag.NoOfPage = NoOfPage;
+            ViewBag.ProductGender = ProductGender;
+
+            productList = productList.Skip(NoOfRecordToSkip).Take(NoOfRecordPerPage).ToList();
+
+
+
             return View(productList); 
+
+
+
         }
      
         [Authorize(Roles = "admin , seller")]

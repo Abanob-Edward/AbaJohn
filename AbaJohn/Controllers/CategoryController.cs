@@ -23,20 +23,9 @@ namespace AbaJohn.Controllers
             categoeryRepository = _categoeryRepository;
         }
         [HttpGet]
-        public IActionResult Show_all_category(int PageNo=1)
+        public IActionResult Show_all_category()
         {
             var categories = categoeryRepository.get_all();
-
-            int NoOfRecordPerPage = 2;
-            int NoOfPage =Convert.ToInt32(Math.Ceiling(Convert.ToDouble(categories.Count) / Convert.ToDouble(NoOfRecordPerPage)));
-
-            int NoOfRecordToSkip = (PageNo-1) * NoOfRecordPerPage;
-
-            ViewBag.PageNo = PageNo;
-            ViewBag.NoOfPage = NoOfPage;
-
-            categories = categories.Skip(NoOfRecordToSkip).Take(NoOfRecordPerPage).ToList();
-
 
 
             return View(categories);

@@ -28,7 +28,6 @@ namespace AbaJohn.ViewModel
         public string? Img2 { get; set; }
         public string? Img3 { get; set; }
 
-
         public int category_id { get; set; } 
 
     }
