@@ -12,6 +12,7 @@ namespace AbaJohn.ViewModel
         public int Quantity { get; set; }
         public string Code { get; set; }
 
+        public string prodeuctGender { get; set; }
         public string title { get; set; }
 
         public string Description { get; set; }

@@ -91,7 +91,7 @@ namespace AbaJohn.Services.AdminRepository
                 product_vw.Code = product.Code;
                 product_vw.title = product.title;
                 product_vw.Description = product.Description;
-                product.prodeuctGender = "Wommen";
+                product_vw.prodeuctGender = product.prodeuctGender;
                 product_vw.category_id = product.CategoryID;
 
                 product_vw.BaseImg = product_images.BaseImg;
@@ -136,6 +136,7 @@ namespace AbaJohn.Services.AdminRepository
             new_product.title = old_product.title;
             new_product.Description = old_product.Description;
             new_product.CategoryID = old_product.category_id;
+            new_product.prodeuctGender = old_product.prodeuctGender;
 
             context.SaveChanges();
 
@@ -313,8 +314,8 @@ namespace AbaJohn.Services.AdminRepository
                 new_product.Code           = new_product_view.Code;
                 new_product.title          = new_product_view.title;
                 new_product.Description    = new_product_view.Description;
-                new_product.prodeuctGender = "Wommen";
-                new_product.CategoryID      = new_product_view.category_id;
+                new_product.prodeuctGender = new_product_view.prodeuctGender;
+                new_product.CategoryID     = new_product_view.category_id;
                 context.products.Add(new_product);
 
                 context.SaveChanges();
