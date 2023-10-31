@@ -31,37 +31,22 @@ namespace AbaJohn.Controllers
         {
             if (ProductGender == null || ProductGender == "")
                 RedirectToAction("index", "home");
-
             var productList = productRepository.GetProductsByGender(ProductGender);
-
-
-            int NoOfRecordPerPage = 2;
-            int NoOfPage = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(productList.Count) / Convert.ToDouble(NoOfRecordPerPage)));
-
-            int NoOfRecordToSkip = (PageNo - 1) * NoOfRecordPerPage;
-
-            ViewBag.PageNo = PageNo;
-            ViewBag.NoOfPage = NoOfPage;
-            ViewBag.ProductGender = ProductGender;
-
-            productList = productList.Skip(NoOfRecordToSkip).Take(NoOfRecordPerPage).ToList();
-
-
-
-            return View(productList); 
-
-
-
+            var model = new ProductListVM_Paging
+            {
+                products = productList,
+                CurrentPage = PageNo,
+                NoOfRecordPerPage = 2,
+                ProductGender = ProductGender
+            };
+          return View(model); 
         }
      
         [Authorize(Roles = "admin , seller")]
         public IActionResult Add_product()
         {
-            /*ViewBag.Lay = TempData["layout"]; */
-           // ViewBag.cat = context.categories.Select(x => new { x.Id, x.Name }).ToList();
+           
             ViewBag.cat = categoeryRepository.get_all();
-       
-
             return View();
         }
         [HttpPost]

@@ -36,44 +36,8 @@ namespace AbaJohn.Services.AdminRepository
                 .Include(I =>I.images).Include(c=>c.category)
                 .ToList();
 
-
             var data = _mapper.Map<List<productViewModel>>(productlst);
-   
-            /*   List <productViewModel> ProductlistVm = new List<productViewModel>();
-
-               foreach (var item in productlst)
-               {
-                   ProductlistVm.Add(*//*new productViewModel
-                   {
-                       ID = item.ID,
-                       Name = item.Name,
-                       price = item.price,
-                       Size = item.Size,
-                       Quantity = item.Quantity,
-                       Code = item.Code,
-                       title = item.title,
-                       Description = item.Description,
-                       category_id = item.CategoryID,
-
-                       BaseImg = item.images.FirstOrDefault()?.BaseImg,
-                       Img1    = item.images.FirstOrDefault()?.Img1,
-                       Img2    = item.images.FirstOrDefault()?.Img2,
-                       Img3    = item.images.FirstOrDefault()?.Img3
-                   }*//*
-
-                       _mapper.Map<productViewModel>(item)
-                       ) ;
-
-
-               }
-              return ProductlistVm;
-                    */
-
-
-
             return data;
-
-
         }
 
         public productViewModel get_product_byid(int id)
