@@ -50,8 +50,7 @@ namespace AbaJohn.Services.AdminRepository
             {
                 product_vw.Name = product.Name;
                 product_vw.price = product.price;
-                product_vw.Quantity = product.Quantity;
-                product_vw.Size = product.Size;
+               
                 product_vw.Code = product.Code;
                 product_vw.title = product.title;
                 product_vw.Description = product.Description;
@@ -94,8 +93,6 @@ namespace AbaJohn.Services.AdminRepository
 
             new_product.Name = old_product.Name;
             new_product.price = old_product.price;
-            new_product.Quantity = old_product.Quantity;
-            new_product.Size = old_product.Size;
             new_product.Code = old_product.Code;
             new_product.title = old_product.title;
             new_product.Description = old_product.Description;
@@ -273,8 +270,6 @@ namespace AbaJohn.Services.AdminRepository
 
                 new_product.Name           = new_product_view.Name;
                 new_product.price          = new_product_view.price;
-                new_product.Quantity       = new_product_view.Quantity;
-                new_product.Size           = new_product_view.Size;
                 new_product.Code           = new_product_view.Code;
                 new_product.title          = new_product_view.title;
                 new_product.Description    = new_product_view.Description;

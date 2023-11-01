@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AbaJohn.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231029112050_lastedit2")]
-    partial class lastedit2
+    [Migration("20231031214622_ChangeImageClass_toOne")]
+    partial class ChangeImageClass_toOne
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -257,17 +257,9 @@ namespace AbaJohn.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Size")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -318,7 +310,8 @@ namespace AbaJohn.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Product_id");
+                    b.HasIndex("Product_id")
+                        .IsUnique();
 
                     b.ToTable("productImages");
                 });
@@ -544,8 +537,8 @@ namespace AbaJohn.Migrations
             modelBuilder.Entity("AbaJohn.Models.ProductImage", b =>
                 {
                     b.HasOne("AbaJohn.Models.Product", "product")
-                        .WithMany("images")
-                        .HasForeignKey("Product_id")
+                        .WithOne("images")
+                        .HasForeignKey("AbaJohn.Models.ProductImage", "Product_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -650,7 +643,8 @@ namespace AbaJohn.Migrations
 
             modelBuilder.Entity("AbaJohn.Models.Product", b =>
                 {
-                    b.Navigation("images");
+                    b.Navigation("images")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

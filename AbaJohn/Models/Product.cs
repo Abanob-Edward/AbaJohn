@@ -9,17 +9,18 @@ namespace AbaJohn.Models
         public string Name { get; set; }
         public string prodeuctGender  { get; set; }
         public double price { get; set; }
-        public string Size { get; set; }
-        public int Quantity { get; set; }
+/*        public string? Size { get; set; }
+        public int Quantity { get; set; }*/
         public string Code { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
+        public List<Item> Items { get; set; }
         public ICollection<Order> orders { get; set; }
         public ICollection<CartItem> CartItem { get; set; }
         public int CategoryID { get; set; }
         [ForeignKey("CategoryID")]
         public Category category { get; set; }
 
-        public List<ProductImage> images { get; set; }
+        public ProductImage images { get; set; }
     }
 
 }
