@@ -303,13 +303,22 @@ namespace AbaJohn.Services.AdminRepository
         public int Delete(int id)
         {
             Product product = context.products.FirstOrDefault(s => s.ID == id);
-            ProductImage product_imag = context.productImages.FirstOrDefault(s => s.Id == id);
+            ProductImage product_imag = context.productImages.FirstOrDefault(s => s.Product_id == id);
+            var item = context.items.Where(s => s.productID == id).ToList();
+            
+            
             context.Remove(product);
             context.Remove(product_imag);
+            context.Remove(item);
+
             int delete = context.SaveChanges();
             return delete;
         }
+        public Item get_item_id(int product_id)
+        {
+            return context.items.FirstOrDefault(s => s.ID == product_id);
+        }
 
-      
+
     }
 }

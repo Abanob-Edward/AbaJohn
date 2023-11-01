@@ -1,0 +1,54 @@
+﻿@model AbaJohn.Models.Item
+
+
+
+@{
+    
+    if (User.IsInRole("seller") || User.IsInRole("admin"))
+    {
+
+        Layout = "_businessAccLayout";
+    }
+}
+
+<div class="container">
+
+
+    <div class="row" style="margin:30px; padding:10px">
+        <table class="table table-bordered" style="text-align:center">
+
+            <tr>
+                <th>
+                    Color
+                </th>
+                <th>
+                    Size
+                </th>
+                <th>
+                    Quantity
+                </th>
+                <th>
+                    productID
+                </th>
+
+            </tr>
+          
+                <tr>
+                    <td>@Model.Color</td>
+                    <td>@Model.size</td>
+                    <td>@Model.Quantity</td>
+                    <td>@Model.productID</td>
+                </tr>
+           </table>
+    </div>
+</div>
+
+
+
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

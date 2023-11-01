@@ -113,6 +113,20 @@ namespace AbaJohn.Controllers
             }
         }
 
+       
+        public IActionResult Add_Item(int product_id)
+        {
+            var items = productRepository.get_item_id(product_id);
+            return View(items);
+
+        }
+
+        [HttpPost]
+        public IActionResult Add_Item()
+        {
+            return View();
+         
+        }
 
 
     }

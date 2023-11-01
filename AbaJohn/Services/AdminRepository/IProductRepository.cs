@@ -11,6 +11,10 @@ namespace AbaJohn.Services.AdminRepository
 
         int update(int id, productViewModel old_product);
         productViewModel get_product_byid(int id);
+
+        Item get_item_id(int id);
+        
         List<productViewModel> GetProductsByGender(string? GenderName);
+
     }
 }

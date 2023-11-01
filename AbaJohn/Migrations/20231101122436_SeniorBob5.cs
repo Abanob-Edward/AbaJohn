@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace AbaJohn.Migrations
 {
-    public partial class addItemToProduct : Migration
+    public partial class SeniorBob5 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -41,5 +42,6 @@ namespace AbaJohn.Migrations
             migrationBuilder.DropTable(
                 name: "Item");
         }
+
     }
 }

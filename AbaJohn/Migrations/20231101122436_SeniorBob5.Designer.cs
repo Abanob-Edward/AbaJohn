@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AbaJohn.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231101112434_addItemToProduct")]
-    partial class addItemToProduct
+    [Migration("20231101122436_SeniorBob5")]
+    partial class SeniorBob5
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -4,7 +4,7 @@
 
 namespace AbaJohn.Migrations
 {
-    public partial class ChangeImageClass_toOne : Migration
+    public partial class SeniorBob8 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

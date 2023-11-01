@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AbaJohn.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231031214622_ChangeImageClass_toOne")]
-    partial class ChangeImageClass_toOne
+    [Migration("20231101133304_SeniorBobfinal")]
+    partial class SeniorBobfinal
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -184,6 +184,33 @@ namespace AbaJohn.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("categories");
+                });
+
+            modelBuilder.Entity("AbaJohn.Models.Item", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<string>("Color")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("productID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("size")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("productID");
+
+                    b.ToTable("items");
                 });
 
             modelBuilder.Entity("AbaJohn.Models.Order", b =>
@@ -501,6 +528,17 @@ namespace AbaJohn.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("AbaJohn.Models.Item", b =>
+                {
+                    b.HasOne("AbaJohn.Models.Product", "Product")
+                        .WithMany("Items")
+                        .HasForeignKey("productID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("AbaJohn.Models.Order", b =>
                 {
                     b.HasOne("AbaJohn.Models.ApplicationUser", "ApplicationUser")
@@ -643,6 +681,8 @@ namespace AbaJohn.Migrations
 
             modelBuilder.Entity("AbaJohn.Models.Product", b =>
                 {
+                    b.Navigation("Items");
+
                     b.Navigation("images")
                         .IsRequired();
                 });
