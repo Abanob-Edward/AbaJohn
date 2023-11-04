@@ -9,8 +9,6 @@ namespace AbaJohn.Models
         public string Name { get; set; }
         public string prodeuctGender  { get; set; }
         public double price { get; set; }
-/*        public string? Size { get; set; }
-        public int Quantity { get; set; }*/
         public string Code { get; set; }
         public string? Description { get; set; }
         public List<Item> Items { get; set; }
@@ -21,6 +19,11 @@ namespace AbaJohn.Models
         public Category category { get; set; }
 
         public ProductImage images { get; set; }
+
+
+        public string? SellerID { get; set; }
+        [ForeignKey("SellerID")]
+        public ApplicationUser Seller { get; set; }
     }
 
 }

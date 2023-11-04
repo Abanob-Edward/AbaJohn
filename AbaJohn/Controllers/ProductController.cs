@@ -82,11 +82,11 @@ namespace AbaJohn.Controllers
 
         [HttpPost]
         [Authorize(Roles = "admin , seller")]
-        public IActionResult Edit_product([FromRoute] int id, productViewModel old_product)
+        public IActionResult Edit_product([FromRoute] int id, productViewModel product)
         {
             if (ModelState.IsValid)
             {
-                productRepository.update(id, old_product);
+                productRepository.update(id, product);
 
                 return RedirectToAction("Show_all_product", "Product");
             }
@@ -95,7 +95,7 @@ namespace AbaJohn.Controllers
                 ModelState.AddModelError("", "Error!");
             }
 
-            return View(old_product);
+            return View(product);
         }
         [Authorize(Roles = "admin , seller")]
         public IActionResult Delete_product(int id)
@@ -114,18 +114,47 @@ namespace AbaJohn.Controllers
         }
 
        
-        public IActionResult Add_Item(int product_id)
+        public IActionResult AddItemToProduct(int product_id)
         {
-            var items = productRepository.get_item_id(product_id);
-            return View(items);
+            ItemViewModel ProductWithItems = new ItemViewModel()
+            {
+                // get product by image 
+                Product = productRepository.get_product_byid(product_id),
+                Colors = Colors_and_Sizes.getcolors(),
+                Sizes = Colors_and_Sizes.getSizes(),
+                productID = product_id
+                
+            };
+
+       
+          
+
+            return View(ProductWithItems);
 
         }
 
         [HttpPost]
-        public IActionResult Add_Item()
+        public IActionResult AddItemToProduct(ItemViewModel Item)
         {
-            return View();
+            productRepository.AddItemToProduct(Item);
+            ViewBag.Message = "Item Successfully Added";
+            ItemViewModel ProductWithItems = new ItemViewModel()
+            {
+                // get product by image 
+                Product = productRepository.get_product_byid(Item.productID),
+                Colors = Colors_and_Sizes.getcolors(),
+                Sizes = Colors_and_Sizes.getSizes(),
+                productID = Item.productID
+
+            };
+
+            return View(ProductWithItems);
          
+        }
+        [HttpDelete]
+        public IActionResult DeleteItem(int ItemId)
+        {
+            return View ();
         }
 
 

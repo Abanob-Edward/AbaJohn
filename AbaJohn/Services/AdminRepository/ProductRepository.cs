@@ -81,9 +81,9 @@ namespace AbaJohn.Services.AdminRepository
             return uniqueName;
         }
 
-        public int update(int id, productViewModel old_product)
+        public int update(int id, productViewModel Newproduct)
         {
-            Product new_product = context.products.FirstOrDefault(s => s.ID == id);
+            Product Old_product = context.products.FirstOrDefault(s => s.ID == id);
             ProductImage new_product_imag = context.productImages.FirstOrDefault(s => s.Id == id);
 
             string baseImgFileName = "";
@@ -91,13 +91,13 @@ namespace AbaJohn.Services.AdminRepository
             string img2FileName = "";
             string img3FileName = "";
 
-            new_product.Name = old_product.Name;
-            new_product.price = old_product.price;
-            new_product.Code = old_product.Code;
-            new_product.title = old_product.title;
-            new_product.Description = old_product.Description;
-            new_product.CategoryID = old_product.category_id;
-            new_product.prodeuctGender = old_product.prodeuctGender;
+            Old_product.Name = Newproduct.Name;
+            Old_product.price = Newproduct.price;
+            Old_product.Code = Newproduct.Code;
+            Old_product.title = Newproduct.title;
+            Old_product.Description = Newproduct.Description;
+            Old_product.CategoryID = Newproduct.category_id;
+            Old_product.prodeuctGender = Newproduct.prodeuctGender;
 
             context.SaveChanges();
 
@@ -111,17 +111,17 @@ namespace AbaJohn.Services.AdminRepository
                 if (!Directory.Exists(path))
                     Directory.CreateDirectory(path);
 
-                if (old_product.BaseFileImg != null)
+                if (Newproduct.BaseFileImg != null)
                 {
                     // Generate a unique file name for BaseImg
-                    baseImgFileName = GenerateUniqueImageName() + Path.GetExtension(old_product.BaseFileImg.FileName);
+                    baseImgFileName = GenerateUniqueImageName() + Path.GetExtension(Newproduct.BaseFileImg.FileName);
                     string baseImgFilePath = Path.Combine(path, baseImgFileName);
 
                     using (var stream = new FileStream(baseImgFilePath, FileMode.Create))
                     {
-                        old_product.BaseFileImg.CopyTo(stream);
+                        Newproduct.BaseFileImg.CopyTo(stream);
                     }
-                    string deletepath = path + "/" + old_product.BaseImg;
+                    string deletepath = path + "/" + Newproduct.BaseImg;
                     FileInfo file = new FileInfo(deletepath);
                     if (file.Exists)
                     {
@@ -130,17 +130,17 @@ namespace AbaJohn.Services.AdminRepository
                     new_product_imag.BaseImg = baseImgFileName;
                 }
 
-                if (old_product.Img1File != null)
+                if (Newproduct.Img1File != null)
                 {
                     // Generate a unique file name for Img1
-                    img1FileName = GenerateUniqueImageName() + Path.GetExtension(old_product.Img1File.FileName);
+                    img1FileName = GenerateUniqueImageName() + Path.GetExtension(Newproduct.Img1File.FileName);
                     string img1FilePath = Path.Combine(path, img1FileName);
 
                     using (var stream = new FileStream(img1FilePath, FileMode.Create))
                     {
-                        old_product.Img1File.CopyTo(stream);
+                        Newproduct.Img1File.CopyTo(stream);
                     }
-                    string deletepath = path + "/" + old_product.Img1;
+                    string deletepath = path + "/" + Newproduct.Img1;
                     FileInfo file = new FileInfo(deletepath);
                     if (file.Exists)
                     {
@@ -149,18 +149,18 @@ namespace AbaJohn.Services.AdminRepository
                     new_product_imag.Img1 = img1FileName;
                 }
 
-                if (old_product.Img2File != null)
+                if (Newproduct.Img2File != null)
                 {
                     // Generate a unique file name for Img2
-                    img2FileName = GenerateUniqueImageName() + Path.GetExtension(old_product.Img2File.FileName);
+                    img2FileName = GenerateUniqueImageName() + Path.GetExtension(Newproduct.Img2File.FileName);
                     string img2FilePath = Path.Combine(path, img2FileName);
 
                     using (var stream = new FileStream(img2FilePath, FileMode.Create))
                     {
-                        old_product.Img2File.CopyTo(stream);
+                        Newproduct.Img2File.CopyTo(stream);
                     }
 
-                    string deletepath = path + "/" + old_product.Img2;
+                    string deletepath = path + "/" + Newproduct.Img2;
 
                     FileInfo file = new FileInfo(deletepath);
                     if (file.Exists)
@@ -170,17 +170,17 @@ namespace AbaJohn.Services.AdminRepository
                     new_product_imag.Img2 = img2FileName;
                 }
 
-                if (old_product.Img3File != null)
+                if (Newproduct.Img3File != null)
                 {
                     // Generate a unique file name for Img3
-                    img3FileName = GenerateUniqueImageName() + Path.GetExtension(old_product.Img3File.FileName);
+                    img3FileName = GenerateUniqueImageName() + Path.GetExtension(Newproduct.Img3File.FileName);
                     string img3FilePath = Path.Combine(path, img3FileName);
 
                     using (var stream = new FileStream(img3FilePath, FileMode.Create))
                     {
-                        old_product.Img3File.CopyTo(stream);
+                        Newproduct.Img3File.CopyTo(stream);
                     }
-                    string deletepath = path + "/" + old_product.Img3;
+                    string deletepath = path + "/" + Newproduct.Img3;
                     FileInfo file = new FileInfo(deletepath);
                     if (file.Exists)
                     {
@@ -304,7 +304,7 @@ namespace AbaJohn.Services.AdminRepository
         {
             Product product = context.products.FirstOrDefault(s => s.ID == id);
             ProductImage product_imag = context.productImages.FirstOrDefault(s => s.Product_id == id);
-            var item = context.items.Where(s => s.productID == id).ToList();
+            var item = context.item.Where(s => s.productID == id).ToList();
             
             
             context.Remove(product);
@@ -314,11 +314,12 @@ namespace AbaJohn.Services.AdminRepository
             int delete = context.SaveChanges();
             return delete;
         }
-        public Item get_item_id(int product_id)
+
+        public int AddItemToProduct(ItemViewModel ProductItems)
         {
-            return context.items.FirstOrDefault(s => s.ID == product_id);
+            var item = _mapper.Map<Item>(ProductItems);
+            context.item.Add(item);
+            return context.SaveChanges();  
         }
-
-
     }
 }

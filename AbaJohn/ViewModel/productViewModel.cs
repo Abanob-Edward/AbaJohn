@@ -8,8 +8,8 @@ namespace AbaJohn.ViewModel
         public int ID { get; set; }
         public string Name { get; set; }
         public double price { get; set; }
-        public string Size { get; set; }
-        public int Quantity { get; set; }
+      /*  public string Size { get; set; }
+        public int Quantity { get; set; }*/
         public string Code { get; set; }
 
         public string prodeuctGender { get; set; }

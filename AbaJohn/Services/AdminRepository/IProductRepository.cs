@@ -9,12 +9,11 @@ namespace AbaJohn.Services.AdminRepository
         int Delete(int id);
         List<Product> get_all_product();
 
-        int update(int id, productViewModel old_product);
+        int update(int id, productViewModel product);
         productViewModel get_product_byid(int id);
 
-        Item get_item_id(int id);
-        
-        List<productViewModel> GetProductsByGender(string? GenderName);
+        int AddItemToProduct(ItemViewModel item);
+       List<productViewModel> GetProductsByGender(string? GenderName);
 
     }
 }

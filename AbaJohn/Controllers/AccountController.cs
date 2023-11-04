@@ -79,6 +79,8 @@ namespace AbaJohn.Controllers
             if(ModelState.IsValid==true)
             {
                 var user = await usermanger.FindByNameAsync(loginaccount.UserName);
+
+
                 if (user != null)
                 {
                     Microsoft.AspNetCore.Identity.SignInResult result = await signinmanger.PasswordSignInAsync(user, loginaccount.password, loginaccount.rememberme, false);

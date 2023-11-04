@@ -371,3 +371,9 @@
     width: 170px;
     text-align: center;
 }
+.RedBoreder {
+    color: white;
+    border: 1px solid red;
+    background-color: #000000;
+   /* width: 100px;*/
+}

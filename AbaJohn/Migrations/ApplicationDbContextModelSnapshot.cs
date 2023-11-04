@@ -208,7 +208,7 @@ namespace AbaJohn.Migrations
 
                     b.HasIndex("productID");
 
-                    b.ToTable("items");
+                    b.ToTable("item");
                 });
 
             modelBuilder.Entity("AbaJohn.Models.Order", b =>
@@ -288,6 +288,10 @@ namespace AbaJohn.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("SellerID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<double>("price")
                         .HasColumnType("float");
 
@@ -302,6 +306,8 @@ namespace AbaJohn.Migrations
                     b.HasKey("ID");
 
                     b.HasIndex("CategoryID");
+
+                    b.HasIndex("SellerID");
 
                     b.ToTable("products");
                 });
@@ -567,6 +573,14 @@ namespace AbaJohn.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("AbaJohn.Models.ApplicationUser", "Seller")
+                        .WithMany("products")
+                        .HasForeignKey("SellerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Seller");
+
                     b.Navigation("category");
                 });
 
@@ -669,6 +683,8 @@ namespace AbaJohn.Migrations
 
                     b.Navigation("address")
                         .IsRequired();
+
+                    b.Navigation("products");
                 });
 
             modelBuilder.Entity("AbaJohn.Models.Order", b =>
