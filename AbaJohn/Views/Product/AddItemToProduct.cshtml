@@ -80,7 +80,7 @@
 
                             </div>
                             <div class="col-md-2 d-flex justify-content-center">
-                                <a class="btn btn-outline-secondary px-3 rounded animate-down-2 RedBoreder" href=""> Show All Items  </a>
+                                <a class="btn btn-outline-secondary px-3 rounded animate-down-2 RedBoreder" asp-action="ShowProdcutItems" asp-route-ProductID="@Model.productID"> Show All Items  </a>
                             </div>
                         </div>
                     </div>
@@ -104,8 +104,8 @@
 
                     <div class="col-sm">
                         <label asp-for="Color" class="control-label"></label>
-                        <select style="color:black" asp-for="Color" name="Color" class="form-control">
-                            <option> Select Color </option>
+                        <select style="color:black" asp-for="Color" name="Color" class="form-control " required>
+                            <option></option>
                             @foreach (var item in Model.Colors)
                             {
                                 <option value="@item.Name" class="fa " style="color: @item.Value ;">&#xf111; @item.Name</option>
@@ -115,11 +115,11 @@
                     </div>
                     <div class="col-sm">
                         <label asp-for="size" class="control-label"></label>
-                        <select style="color:black" asp-for="size" name="size" class="form-control">
-                            <option> Select Size </option>
+                        <select style="color:black" asp-for="size" name="size" class="form-control required">
+                            <option>No Size</option>
                             @foreach (var item in Model.Sizes)
                             {
-                                <option value="@item.Name" class="fa ">&#xf111; @item.Value</option>
+                                <option value="@item.Name" class="fa">&#xf111; @item.Value</option>
                             }
                         </select>
                         <span asp-validation-for="size" class="text-danger"></span>

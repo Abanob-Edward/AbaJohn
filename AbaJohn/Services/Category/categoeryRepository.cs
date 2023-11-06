@@ -1,8 +1,9 @@
 ﻿using AbaJohn.Models;
+using AbaJohn;
 using AbaJohn.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AbaJohn.Services.AdminRepository
+namespace AbaJohn
 {
     public class categoeryRepository : IcategoeryRepository
     {

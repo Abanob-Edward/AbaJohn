@@ -1,7 +1,7 @@
 ﻿using AbaJohn.Models;
 using AbaJohn.ViewModel;
 
-namespace AbaJohn.Services.AdminRepository
+namespace AbaJohn
 {
     public interface IcategoeryRepository
     {

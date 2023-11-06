@@ -1,9 +1,11 @@
 ﻿using AbaJohn.Models;
-using AbaJohn.Services.AdminRepository;
+using AbaJohn;
+
 using AbaJohn.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
+using AbaJohn.Services.Itemss;
 
 namespace AbaJohn.Controllers
 {
@@ -13,19 +15,35 @@ namespace AbaJohn.Controllers
        
         private readonly IProductRepository productRepository;
         private readonly IcategoeryRepository categoeryRepository;
+        private readonly IItem itemRepository;
 
-        public ProductController( IProductRepository _productRepository, IcategoeryRepository _categoeryRepository)
+        public ProductController( IProductRepository _productRepository, IcategoeryRepository _categoeryRepository , IItem _item)
         {
            
             productRepository = _productRepository;
             categoeryRepository = _categoeryRepository;
+            itemRepository = _item;
         }
-        [Authorize(Roles = "admin , seller")]
+        [Authorize(Roles = "admin")]
         public IActionResult Show_all_product()
         {
 
             List<Product> products = productRepository.get_all_product();
             return View(products);
+        } 
+        [Authorize(Roles = "seller")]
+        public IActionResult ShowProductSeller()
+        {
+           var username = User.Identity?.Name;
+            List<Product> products = productRepository.GetSellerProducts(username);
+            return View("Show_all_product" ,products);
+        }
+
+        [HttpGet]
+        public IActionResult ShowProdcutItems(int ProductID)
+        {
+            var item = itemRepository.GetItemsForPrudect(ProductID);
+            return View();
         }
         public IActionResult ShowProductsByGender(string ProductGender, int PageNo = 1)
         {
@@ -116,12 +134,16 @@ namespace AbaJohn.Controllers
        
         public IActionResult AddItemToProduct(int product_id)
         {
+            // check if the product form sellerProduct List or not 
+
+            ViewBag.Message = "";
             ItemViewModel ProductWithItems = new ItemViewModel()
             {
                 // get product by image 
                 Product = productRepository.get_product_byid(product_id),
                 Colors = Colors_and_Sizes.getcolors(),
                 Sizes = Colors_and_Sizes.getSizes(),
+
                 productID = product_id
                 
             };

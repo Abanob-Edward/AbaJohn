@@ -1,6 +1,7 @@
 ﻿using AbaJohn.Models;
 using AbaJohn.Services.AccountRepository;
-using AbaJohn.Services.AdminRepository;
+using AbaJohn;
+
 using AbaJohn.Services.user;
 using AbaJohn.ViewModel;
 using Microsoft.AspNetCore.Authorization;

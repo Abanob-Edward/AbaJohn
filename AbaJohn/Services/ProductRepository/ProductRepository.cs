@@ -1,4 +1,5 @@
 ﻿using AbaJohn.Models;
+
 using AbaJohn.ViewModel;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -7,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Transactions;
 
-namespace AbaJohn.Services.AdminRepository
+namespace AbaJohn
 {
     public class ProductRepository : IProductRepository
     {
@@ -26,9 +27,13 @@ namespace AbaJohn.Services.AdminRepository
         //CURD
         public List<Product> get_all_product()
         {
-            return context.products.Include(x=>x.category).ToList();
+            return context.products.Include(x=>x.category).Include(i=>i.images).ToList();
         }
-
+        public List<Product> GetSellerProducts(string SellerName)
+        {
+          var SellerID = context.Users.FirstOrDefault(x => x.UserName == SellerName)?.Id;
+            return context.products.Where(c=>c.SellerID == SellerID).Include(c=>c.category).Include(i => i.images).ToList();
+        }
         public List<productViewModel> GetProductsByGender(string GenderName)
         {
            var productlst = context.products
@@ -321,5 +326,7 @@ namespace AbaJohn.Services.AdminRepository
             context.item.Add(item);
             return context.SaveChanges();  
         }
+
+      
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AbaJohn.Models;
 using AbaJohn.Services.AccountRepository;
-using AbaJohn.Services.AdminRepository;
+using AbaJohn;
+using AbaJohn.Services;
 using AbaJohn.Services.user;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Globalization;
+using AbaJohn.Services.Itemss;
 
 namespace AbaJohn
 {
@@ -54,6 +56,7 @@ namespace AbaJohn
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<IAccountRepository, AccountRepository>();
             builder.Services.AddScoped<Iuser, UserRepository>();
+            builder.Services.AddScoped<IItem, ItemRepository>();
             builder.Services.AddAutoMapper(typeof(Program));
             var app = builder.Build();
 

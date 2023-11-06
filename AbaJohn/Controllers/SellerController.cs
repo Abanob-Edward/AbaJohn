@@ -1,10 +1,11 @@
 ﻿using AbaJohn.Models;
-using AbaJohn.Services.AdminRepository;
 using AbaJohn.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using AbaJohn.Services.user;
+
+using AbaJohn;
 
 namespace AbaJohn.Controllers
 {
