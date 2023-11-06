@@ -33,6 +33,8 @@
         <form asp-action="Add_product" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="All" class="text-danger"></div>
 
+            <input type="hidden" asp-for="seller_id" value=@ViewBag.id />
+
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label style="color:black" asp-for="Name" class="control-label"></label>
