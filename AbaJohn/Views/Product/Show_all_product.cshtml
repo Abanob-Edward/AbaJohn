@@ -13,8 +13,11 @@
 
 <div class="container">
 
-
+    <div class="text-center">
+        <h2 style="color: red"> @ViewBag.massege </h2>
+     </div>
     <div class="row" style="margin:30px; padding:10px">
+       
         <table class="table table-bordered" style="text-align:center">
 
             <tr>
@@ -61,7 +64,7 @@
                     <td>@item.category.Name</td>
                     <td> <img src="../files/productimg/@item.images.BaseImg" style="width:50px; height:80px" /> </td>
                     <td>
-                        <a class="btn btn-dark" style="color:white; border: 1px solid red; background-color: #000000;    width: 100px; " asp-action="AddItemToProduct" asp-controller="Product" asp-route-product_id="@item.ID">Add Item</a>
+                        <a class="btn btn-dark" style="color:white; border: 1px solid red; background-color: #000000;    width: 100px; " asp-action="AddItemToProduct" asp-controller="Item" asp-route-product_id="@item.ID"> Items</a>
 
                     </td>
 

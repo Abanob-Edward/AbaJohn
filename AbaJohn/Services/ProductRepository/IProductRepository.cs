@@ -15,6 +15,7 @@ namespace AbaJohn
 
         int AddItemToProduct(ItemViewModel item);
         List<productViewModel> GetProductsByGender(string? GenderName);
+        bool CheeckProductForSeller(int ProductID , string SellerName);
 
     }
 }

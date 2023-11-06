@@ -80,7 +80,7 @@
 
                             </div>
                             <div class="col-md-2 d-flex justify-content-center">
-                                <a class="btn btn-outline-secondary px-3 rounded animate-down-2 RedBoreder" asp-action="ShowProdcutItems" asp-route-ProductID="@Model.productID"> Show All Items  </a>
+                                <a class="btn btn-outline-secondary px-3 rounded animate-down-2 RedBoreder" asp-action="ShowItemsForProdcut" asp-route-ProductID="@Model.productID"> Show All Items  </a>
                             </div>
                         </div>
                     </div>
@@ -98,8 +98,6 @@
             <form asp-action="AddItemToProduct" id="duplicater" style="margin-bottom:15px;">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input asp-for="productID" value="@Model.productID" hidden />
-              
-               
                   <div class="row">
 
                     <div class="col-sm">

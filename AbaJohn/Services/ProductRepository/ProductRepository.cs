@@ -74,6 +74,20 @@ namespace AbaJohn
             return null;
 
         }
+        public int AddItemToProduct(ItemViewModel ProductItems)
+        {
+            var item = _mapper.Map<Item>(ProductItems);
+            context.item.Add(item);
+            return context.SaveChanges();
+        }
+
+        public bool CheeckProductForSeller(int ProductID, string SellerName)
+        {
+            var productList = GetSellerProducts(SellerName).Select(x=>x.ID);
+           if(productList.Contains(ProductID))
+                 return true;
+           else return false;
+        }
         public string GenerateUniqueImageName()
         {
             // Get the current date and time
@@ -320,13 +334,6 @@ namespace AbaJohn
             return delete;
         }
 
-        public int AddItemToProduct(ItemViewModel ProductItems)
-        {
-            var item = _mapper.Map<Item>(ProductItems);
-            context.item.Add(item);
-            return context.SaveChanges();  
-        }
-
-      
+  
     }
 }
