@@ -29,24 +29,19 @@ namespace AbaJohn.Controllers
         [Authorize(Roles = "admin")]
         public IActionResult Show_all_product()
         {
-
+           
             List<Product> products = productRepository.get_all_product();
             return View(products);
         } 
         [Authorize(Roles = "seller")]
         public IActionResult ShowProductSeller()
         {
+            ViewBag.massege = TempData["massege"];
             var username = User.Identity?.Name;
             List<Product> products = productRepository.GetSellerProducts(username);
             return View("Show_all_product", products);
         }
-
-        [HttpGet]
-        public IActionResult ShowProdcutItems(int ProductID)
-        {
-            var item = itemRepository.GetItemsForPrudect(ProductID);
-            return View();
-        }
+   
         public IActionResult ShowProductsByGender(string ProductGender, int PageNo = 1)
         {
             if (ProductGender == null || ProductGender == "")
@@ -138,53 +133,7 @@ namespace AbaJohn.Controllers
             }
         }
 
-       
-        public IActionResult AddItemToProduct(int product_id)
-        {
-            // check if the product form sellerProduct List or not 
 
-            ViewBag.Message = "";
-            ItemViewModel ProductWithItems = new ItemViewModel()
-            {
-                // get product by image 
-                Product = productRepository.get_product_byid(product_id),
-                Colors = Colors_and_Sizes.getcolors(),
-                Sizes = Colors_and_Sizes.getSizes(),
-
-                productID = product_id
-                
-            };
-
-       
-          
-
-            return View(ProductWithItems);
-
-        }
-
-        [HttpPost]
-        public IActionResult AddItemToProduct(ItemViewModel Item)
-        {
-            productRepository.AddItemToProduct(Item);
-            ViewBag.Message = "Item Successfully Added";
-            ItemViewModel ProductWithItems = new ItemViewModel()
-            {
-                // get product by image 
-                Product = productRepository.get_product_byid(Item.productID),
-                Colors = Colors_and_Sizes.getcolors(),
-                Sizes = Colors_and_Sizes.getSizes(),
-                productID = Item.productID
-
-            };
-
-            return View(ProductWithItems);
-         
-        }
-        [HttpDelete]
-        public IActionResult DeleteItem(int ItemId)
-        {
-            return View ();
-        }
 
 
     }
