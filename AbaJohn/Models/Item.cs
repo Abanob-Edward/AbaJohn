@@ -10,6 +10,6 @@ namespace AbaJohn.Models
         public int  Quantity  { get; set; }
         public int productID { get; set; }
         [ForeignKey("productID")]
-        public Product Product { get; set; }
+        public Product? Product { get; set; }
     }
 }
