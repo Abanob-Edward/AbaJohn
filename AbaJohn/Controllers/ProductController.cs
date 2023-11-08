@@ -12,14 +12,14 @@ namespace AbaJohn.Controllers
     //Authorize(Roles = "admin")]
     public class ProductController : Controller
     {
-       
+
         private readonly IProductRepository productRepository;
         private readonly IcategoeryRepository categoeryRepository;
         private readonly IItem itemRepository;
 
-        public ProductController( IProductRepository _productRepository, IcategoeryRepository _categoeryRepository , IItem _item)
+        public ProductController(IProductRepository _productRepository, IcategoeryRepository _categoeryRepository, IItem _item)
         {
-           
+
             productRepository = _productRepository;
             categoeryRepository = _categoeryRepository;
             itemRepository = _item;
@@ -27,24 +27,26 @@ namespace AbaJohn.Controllers
         [Authorize(Roles = "admin")]
         public IActionResult Show_all_product()
         {
-           
+
             List<Product> products = productRepository.get_all_product();
             return View(products);
-        } 
+        }
         [Authorize(Roles = "seller")]
         public IActionResult ShowProductSeller()
         {
             ViewBag.massege = TempData["massege"];
             var username = User.Identity?.Name;
             List<Product> products = productRepository.GetSellerProducts(username);
-            return View("Show_all_product" ,products);
+            return View("Show_all_product", products);
         }
-   
+      
         public IActionResult ShowProductsByGender(string ProductGender, int PageNo = 1)
         {
             if (ProductGender == null || ProductGender == "")
                 RedirectToAction("index", "home");
+
             var productList = productRepository.GetProductsByGender(ProductGender);
+
             var model = new ProductListVM_Paging
             {
                 products = productList,
@@ -52,7 +54,21 @@ namespace AbaJohn.Controllers
                 NoOfRecordPerPage = 2,
                 ProductGender = ProductGender
             };
-          return View(model); 
+            return View(model);
+        }
+        public IActionResult ShowProductsFilter(string ProductGender, double? MinPrice, double? MaxPrice,
+         string Color,string size ,   int PageNo = 1)
+        {
+            var productList = productRepository.ProductsFilter(ProductGender, MinPrice, MaxPrice, Color, size);
+
+            var model = new ProductListVM_Paging
+            {
+                products = productList,
+                CurrentPage = PageNo,
+                NoOfRecordPerPage = 2,
+                ProductGender = ProductGender
+            };
+           return PartialView("_ProductsAndPagingpartial", model);
         }
      
         [Authorize(Roles = "admin , seller")]

@@ -14,10 +14,13 @@ namespace AbaJohn.ViewModel
         [Range(1, int.MaxValue, ErrorMessage = "Quantity should be greater than or equal to 1")]
         public int Quantity { get; set; }
         public int productID { get; set; }
+       
         public productViewModel Product { get; set; }
 
         public List<Colors_and_Sizes> Colors{ get; set; }
         public List<Colors_and_Sizes> Sizes{ get; set; }
+
+        public List<Item>? Items { get; set; }
      
 
     }

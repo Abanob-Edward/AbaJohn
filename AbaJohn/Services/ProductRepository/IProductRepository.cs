@@ -15,6 +15,7 @@ namespace AbaJohn
 
         int AddItemToProduct(ItemViewModel item);
         List<productViewModel> GetProductsByGender(string? GenderName);
+        List<productViewModel> ProductsFilter(string? GenderName, double? MinPrice, double? MaxPrice,string Color, string size);
         bool CheeckProductForSeller(int ProductID , string SellerName);
 
     }

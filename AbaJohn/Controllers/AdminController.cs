@@ -109,7 +109,7 @@ namespace AbaJohn.Controllers
         }
 
         [HttpPost]
-        public ActionResult Show_users(string id)
+        public IActionResult Show_users(string id)
         {
            
                 var user_list = userRepository.ShowUsers(id);

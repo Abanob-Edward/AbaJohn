@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Transactions;
 
 namespace AbaJohn
@@ -42,7 +43,22 @@ namespace AbaJohn
                 .ToList();
 
             var data = _mapper.Map<List<productViewModel>>(productlst);
+           
             return data;
+        }
+        public List<productViewModel> ProductsFilter(string GenderName, double? MinPrice, double? MaxPrice, string Color, string size)
+        {
+           
+
+            var productlst = context.products.Include(I => I.images).Include(c => c.category).Include(i => i.Items)
+                .Where(p => (p.price >= MinPrice && p.price <= MaxPrice) || (MinPrice == 0 && MaxPrice == 0) || (MinPrice == null && MaxPrice == null))
+                .Where(G => (G.prodeuctGender.ToLower() == GenderName.ToLower()) || G.prodeuctGender ==null)
+              /*  .Where(p => (p.Items.Where(c=>c.Color.ToLower().Contains(Color.ToLower())) != null) || p.Items == null)
+                .Where(p => (p.Items.Where(c=>c.Color.ToLower().Contains(size.ToLower())) != null)  || p.Items == null)*/
+                .ToList();
+            var DataAfterFilter = _mapper.Map<List<productViewModel>>(productlst);
+
+            return DataAfterFilter;
         }
 
         public productViewModel get_product_byid(int id)
