@@ -2,6 +2,7 @@
 
 using AbaJohn.ViewModel;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.EntityFrameworkCore;
@@ -23,8 +24,10 @@ namespace AbaJohn
             context = _context;
             _mapper = mapper;
         }
+        public string getseller_id(string SellerName) { 
 
-    
+            return context.Users.FirstOrDefault(x => x.UserName == SellerName)?.Id;
+        }
         //CURD
         public List<Product> get_all_product()
         {
@@ -32,14 +35,14 @@ namespace AbaJohn
         }
         public List<Product> GetSellerProducts(string SellerName)
         {
-          var SellerID = context.Users.FirstOrDefault(x => x.UserName == SellerName)?.Id;
-            return context.products.Where(c=>c.SellerID == SellerID).Include(c=>c.category).Include(i => i.images).ToList();
+            var SellerID = context.Users.FirstOrDefault(x => x.UserName == SellerName)?.Id;
+            return context.products.Where(c => c.SellerID == SellerID).Include(c => c.category).Include(i => i.images).ToList();
         }
         public List<productViewModel> GetProductsByGender(string GenderName)
         {
            var productlst = context.products
                 .Where(p => p.prodeuctGender.ToLower() == GenderName.ToLower())
-                .Include(I =>I.images).Include(c=>c.category)
+                .Include(I => I.images).Include(c => c.category)
                 .ToList();
 
             var data = _mapper.Map<List<productViewModel>>(productlst);
@@ -77,6 +80,9 @@ namespace AbaJohn
                 product_vw.Description = product.Description;
                 product_vw.prodeuctGender = product.prodeuctGender;
                 product_vw.category_id = product.CategoryID;
+
+
+
 
                 product_vw.BaseImg = product_images.BaseImg;
                 product_vw.Img1 = product_images.Img1;
@@ -310,6 +316,8 @@ namespace AbaJohn
                 new_product.Description    = new_product_view.Description;
                 new_product.prodeuctGender = new_product_view.prodeuctGender;
                 new_product.CategoryID     = new_product_view.category_id;
+                new_product.SellerID = new_product_view.seller_id;
+
                 context.products.Add(new_product);
 
                 context.SaveChanges();

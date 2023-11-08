@@ -12,9 +12,6 @@
 }
 
 
-
-
-
 <hr />
 <div class="container h-150">
     <div class="row d-flex justify-content-center align-items-center ">
@@ -89,13 +86,16 @@
         </div>
     </div>
 </div>
+
+
+
 <div class="container">
     <div class="row">
         <div class="col-10">
             <h3 style="color: #25d30e; text-align: center;margin: 10px;">
                 @ViewBag.Message
             </h3>
-            <form asp-action="AddItemToProduct" id="duplicater" style="margin-bottom:15px;">
+            <form asp-action="AddItemToProduct" asp-controller="Item" id="duplicater" style="margin-bottom:15px;">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input asp-for="productID" value="@Model.productID" hidden />
                   <div class="row">
@@ -139,7 +139,7 @@
         <div class="col-2 text-center">
 
             <br />
-            <input type="button" value="Add New Item" onclick=" addNewITem()" class="btn btn-dark RedBoreder" style="margin-top:8px" />
+            <input type="button" value="Add New Item" onclick=" addNewITem()," class="btn btn-dark RedBoreder" style="margin-top:8px" />
 
             <br />
         </div>
@@ -157,8 +157,23 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+
+
+
+
 <script>
-  
+
+    function myFunction() {
+        var x = document.getElementById("myDIV");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+
+    
     var i = 1;
    
     function addNewITem() {

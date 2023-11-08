@@ -23,7 +23,7 @@ namespace AbaJohn.Models
 
         public string? SellerID { get; set; }
         [ForeignKey("SellerID")]
-        public ApplicationUser Seller { get; set; }
+        public ApplicationUser seller { get; set; }
     }
 
 }

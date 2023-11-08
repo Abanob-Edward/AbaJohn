@@ -573,15 +573,15 @@ namespace AbaJohn.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AbaJohn.Models.ApplicationUser", "Seller")
+                    b.HasOne("AbaJohn.Models.ApplicationUser", "seller")
                         .WithMany("products")
                         .HasForeignKey("SellerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Seller");
-
                     b.Navigation("category");
+
+                    b.Navigation("seller");
                 });
 
             modelBuilder.Entity("AbaJohn.Models.ProductImage", b =>

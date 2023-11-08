@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using AbaJohn.Services.Itemss;
+using NuGet.Protocol;
+using AbaJohn.Services.user;
 
 namespace AbaJohn.Controllers
 {
@@ -74,7 +76,10 @@ namespace AbaJohn.Controllers
         [Authorize(Roles = "admin , seller")]
         public IActionResult Add_product()
         {
-           
+               
+            var username = User.Identity?.Name;
+            ViewBag.id = productRepository.getseller_id(username);
+
             ViewBag.cat = categoeryRepository.get_all();
             return View();
         }
@@ -88,7 +93,7 @@ namespace AbaJohn.Controllers
 
                 productRepository.create(new_product);
 
-                return RedirectToAction("Show_all_product", "Product");
+                return RedirectToAction("ShowProductSeller", "Product");
 
             }
             else
@@ -103,6 +108,8 @@ namespace AbaJohn.Controllers
         [Authorize(Roles = "admin , seller")]
         public IActionResult Edit_product(int id)
         {
+            var username = User.Identity?.Name;
+            ViewBag.id = productRepository.getseller_id(username);
             //ViewData["old_product"] = productRepository.get_product_byid(id);
             ViewBag.cat = categoeryRepository.get_all();
             var product = productRepository.get_product_byid(id);
@@ -117,7 +124,7 @@ namespace AbaJohn.Controllers
             {
                 productRepository.update(id, product);
 
-                return RedirectToAction("Show_all_product", "Product");
+                return RedirectToAction("ShowProductSeller", "Product");
             }
             else
             {
