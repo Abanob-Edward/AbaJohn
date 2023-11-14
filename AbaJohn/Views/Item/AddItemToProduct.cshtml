@@ -96,7 +96,7 @@
                 @ViewBag.Message
             </h3>
             <form asp-action="AddItemToProduct" asp-controller="Item" id="duplicater" style="margin-bottom:15px;">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+               @* <div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
                 <input asp-for="productID" value="@Model.productID" hidden />
                   <div class="row">
 
@@ -139,7 +139,7 @@
         <div class="col-2 text-center">
 
             <br />
-            <input type="button" value="Add New Item" onclick=" addNewITem()," class="btn btn-dark RedBoreder" style="margin-top:8px" />
+            <input type="button" value="Add New Item" onclick=" addNewITem()" class="btn btn-dark RedBoreder" style="margin-top:8px" />
 
             <br />
         </div>
@@ -163,15 +163,6 @@
 
 
 <script>
-
-    function myFunction() {
-        var x = document.getElementById("myDIV");
-        if (x.style.display === "none") {
-            x.style.display = "block";
-        } else {
-            x.style.display = "none";
-        }
-    }
 
     
     var i = 1;

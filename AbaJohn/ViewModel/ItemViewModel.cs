@@ -6,7 +6,7 @@ namespace AbaJohn.ViewModel
 {
     public class ItemViewModel
     {
-     /*   public int ID { get; set; }*/
+        public int? ID { get; set; }
         [Required(ErrorMessage="Please Select Color")]
         public string Color { get; set; }
         public string? size { get; set; }
@@ -21,7 +21,7 @@ namespace AbaJohn.ViewModel
         public List<Colors_and_Sizes> Sizes{ get; set; }
 
         public List<Item>? Items { get; set; }
-     
+        public string? ReturnUrl { get; set; }
 
     }
 }

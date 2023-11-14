@@ -2,6 +2,7 @@
 using AbaJohn.Services.Itemss;
 using AbaJohn.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 
 namespace AbaJohn.Controllers
 {
@@ -20,24 +21,43 @@ namespace AbaJohn.Controllers
         }
         [HttpGet]
         public IActionResult ShowItemsForProdcut(int ProductID)
-        { 
-            var item = itemRepository.GetItemsForPrudect(ProductID);
-            var product_name = productRepository.get_product_byid(ProductID).Name;
-            ViewBag.ProductName = product_name;
-
-            ItemViewModel ProductWithItems = new ItemViewModel()
+        {
+            if (ProductID == null|| ProductID==0)
             {
-                // get product by image 
-                Colors = Colors_and_Sizes.getcolors(),
-                Sizes = Colors_and_Sizes.getSizes(),
+                ProductID = (int)TempData["ProductID"];
+            }
+            // check if the product form sellerProduct List or not 
+            var username = User.Identity?.Name;
+            var result = productRepository.CheeckProductForSeller(ProductID, username);
+            var items = itemRepository.GetItemsForPrudect(ProductID);
+    
+            if (result)
+            {
+                int totalQuantity=0;
+                foreach (var item in items)
+                {
+                    totalQuantity += item.Quantity;
+                }
+                ViewBag.TotalQuantity = totalQuantity;
+                ItemViewModel Items = new ItemViewModel()
+                {
+                    // get product by image 
+                    Product = productRepository.get_product_byid(ProductID),
+                    Colors = Colors_and_Sizes.getcolors(),
+                    Sizes = Colors_and_Sizes.getSizes(),
 
-                productID = ProductID
+                    productID = ProductID,
+                    Items= items,
+                    ReturnUrl= "ShowItemsForProdcut"
 
-            };
-
-            ViewBag.ProductWithItems = ProductWithItems;
-
-            return View(item);
+                };
+                return View(Items);
+            }else
+            {
+                TempData["massege"] = " متحاولش تاني كفايا وفر وقتك ";
+                return RedirectToAction("ShowProductSeller", "product");
+            }
+  
         }
         [HttpGet]
         public IActionResult AddItemToProduct(int product_id)
@@ -48,15 +68,15 @@ namespace AbaJohn.Controllers
             var result = productRepository.CheeckProductForSeller(product_id, username);
             if (result)
             {
-
                 ItemViewModel ProductWithItems = new ItemViewModel()
                 {
                     // get product by image 
                     Product = productRepository.get_product_byid(product_id),
                     Colors = Colors_and_Sizes.getcolors(),
                     Sizes = Colors_and_Sizes.getSizes(),
-
-                    productID = product_id
+                   
+                    productID = product_id,
+                    ReturnUrl= "AddItemToProduct"
 
                 };
                 return View(ProductWithItems);
@@ -79,6 +99,8 @@ namespace AbaJohn.Controllers
             if(result)
             {
                 productRepository.AddItemToProduct(Item);
+                var item = itemRepository.GetItemsForPrudect(Item.productID);
+             
                 ViewBag.Message = "Item Successfully Added";
                 ItemViewModel ProductWithItems = new ItemViewModel()
                 {
@@ -86,10 +108,12 @@ namespace AbaJohn.Controllers
                     Product = productRepository.get_product_byid(Item.productID),
                     Colors = Colors_and_Sizes.getcolors(),
                     Sizes = Colors_and_Sizes.getSizes(),
-                    productID = Item.productID
+                    productID = Item.productID,
+                    Items = item,
+                    ReturnUrl = Item.ReturnUrl
 
                 };
-                return View(ProductWithItems);
+                return View(Item.ReturnUrl,ProductWithItems);
             }
             else
             {
@@ -100,47 +124,78 @@ namespace AbaJohn.Controllers
 
         }
        
-        public IActionResult Edit_item(int ID)
-        { 
-            var items = itemRepository.Get_all_items().FirstOrDefault(x=>x.ID == ID);
-
-            var username = User.Identity?.Name;
-            List<Product> products = productRepository.GetSellerProducts(username);
-            ViewBag.products = products;
-           
-            return View(items);
-        }
-        [HttpPost]
-        public IActionResult Edit_item([FromRoute]int id,Item new_item)
+        public IActionResult Edit_item(int ID,int ProductID)
         {
-            if (ModelState.IsValid)
+            TempData["massege"] = "لم نفسك عيييب عيب ";
+            var username = User.Identity?.Name;
+
+            var resultforproduct = productRepository.CheeckProductForSeller(ProductID, username);
+            if (resultforproduct)
             {
-
-                itemRepository.update_item(id,new_item);
-                var product_id = new_item.productID;
-                return RedirectToAction("ShowProductSeller", "product");
-
+                // cheek items for product 
+                var reusltForItem = itemRepository.CheekItemForProduct(ProductID, ID);
+                if(reusltForItem)
+                {
+                    var item = itemRepository.Get_item_byid(ID);
+                    ItemViewModel model = new ItemViewModel
+                    {
+                        Colors = Colors_and_Sizes.getcolors(),
+                        Sizes = Colors_and_Sizes.getSizes(),
+                        productID = item.productID,
+                        ID = item.ID,
+                        Quantity = item.Quantity,
+                        size =     item.size,
+                        Color =    item.Color,
+                    };
+                 
+                    return View(model);
+                }else
+                    return RedirectToAction("ShowProductSeller", "product");
             }
             else
             {
-                ModelState.AddModelError("", "Error!");
-                return View(new_item);
+               
+                return RedirectToAction("ShowProductSeller", "product");
             }
-
-
-
-
-           
           
+        }
+        [HttpPost]
+        public IActionResult Edit_item(ItemViewModel NewItem)
+        {
+            TempData["massege"] = "لم نفسك عيييب عيب ";
+            var username = User.Identity?.Name;
+
+            var resultforproduct = productRepository.CheeckProductForSeller(NewItem.productID, username);
+            if (resultforproduct)
+            {
+                // cheek items for product 
+                var reusltForItem = itemRepository.CheekItemForProduct(NewItem.productID, NewItem.ID);
+                if (reusltForItem)
+                {
+                    var item = itemRepository.getItemFormItemVM(NewItem);
+                    itemRepository.update_item(item);
+                    TempData["ProductID"] = NewItem.productID;
+                    return RedirectToAction("ShowItemsForProdcut");
+                }
+                else
+                    return RedirectToAction("ShowProductSeller", "product");
+            }
+            else
+            {
+
+                return RedirectToAction("ShowProductSeller", "product");
+            }
+ 
         }
 
 
-        public IActionResult DeleteItem(int ItemId)
+        public IActionResult DeleteItem(int ItemId ,int ProductID)
         {
             try
             {
                 itemRepository.Delete(ItemId);
-                return RedirectToAction("ShowProductSeller", "product");
+                TempData["ProductID"] = ProductID;
+                return RedirectToAction("ShowItemsForProdcut");
             }
             catch (Exception ex)
             {

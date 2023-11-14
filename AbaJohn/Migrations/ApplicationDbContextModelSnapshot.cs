@@ -54,7 +54,7 @@ namespace AbaJohn.Migrations
                     b.HasIndex("User_id")
                         .IsUnique();
 
-                    b.ToTable("Addresses");
+                    b.ToTable("Addresses", (string)null);
                 });
 
             modelBuilder.Entity("AbaJohn.Models.ApplicationUser", b =>
@@ -156,7 +156,7 @@ namespace AbaJohn.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("cartItems");
+                    b.ToTable("cartItems", (string)null);
                 });
 
             modelBuilder.Entity("AbaJohn.Models.Category", b =>
@@ -181,7 +181,7 @@ namespace AbaJohn.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("categories");
+                    b.ToTable("categories", (string)null);
                 });
 
             modelBuilder.Entity("AbaJohn.Models.Item", b =>
@@ -208,7 +208,7 @@ namespace AbaJohn.Migrations
 
                     b.HasIndex("productID");
 
-                    b.ToTable("item");
+                    b.ToTable("item", (string)null);
                 });
 
             modelBuilder.Entity("AbaJohn.Models.Order", b =>
@@ -233,7 +233,7 @@ namespace AbaJohn.Migrations
 
                     b.HasIndex("User_id");
 
-                    b.ToTable("orders");
+                    b.ToTable("orders", (string)null);
                 });
 
             modelBuilder.Entity("AbaJohn.Models.Payment", b =>
@@ -263,7 +263,7 @@ namespace AbaJohn.Migrations
                     b.HasIndex("orderNumber")
                         .IsUnique();
 
-                    b.ToTable("payments");
+                    b.ToTable("payments", (string)null);
                 });
 
             modelBuilder.Entity("AbaJohn.Models.Product", b =>
@@ -309,7 +309,7 @@ namespace AbaJohn.Migrations
 
                     b.HasIndex("SellerID");
 
-                    b.ToTable("products");
+                    b.ToTable("products", (string)null);
                 });
 
             modelBuilder.Entity("AbaJohn.Models.ProductImage", b =>
@@ -344,7 +344,7 @@ namespace AbaJohn.Migrations
                     b.HasIndex("Product_id")
                         .IsUnique();
 
-                    b.ToTable("productImages");
+                    b.ToTable("productImages", (string)null);
                 });
 
             modelBuilder.Entity("CartItemProduct", b =>
@@ -359,7 +359,7 @@ namespace AbaJohn.Migrations
 
                     b.HasIndex("productsID");
 
-                    b.ToTable("CartItemProduct");
+                    b.ToTable("CartItemProduct", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -507,7 +507,7 @@ namespace AbaJohn.Migrations
 
                     b.HasIndex("productsID");
 
-                    b.ToTable("OrderProduct");
+                    b.ToTable("OrderProduct", (string)null);
                 });
 
             modelBuilder.Entity("AbaJohn.Models.Address", b =>
@@ -573,15 +573,15 @@ namespace AbaJohn.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AbaJohn.Models.ApplicationUser", "seller")
+                    b.HasOne("AbaJohn.Models.ApplicationUser", "Seller")
                         .WithMany("products")
                         .HasForeignKey("SellerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("category");
+                    b.Navigation("Seller");
 
-                    b.Navigation("seller");
+                    b.Navigation("category");
                 });
 
             modelBuilder.Entity("AbaJohn.Models.ProductImage", b =>

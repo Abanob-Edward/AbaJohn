@@ -20,6 +20,8 @@ namespace AbaJohn.Helpers
                 src => src.MapFrom(src => src.images.Img3));
 
                  CreateMap<ItemViewModel, Item>().ForMember(s=>s.ID ,D=>D.Ignore());
+
+            CreateMap<Item,Item>().ForMember(d => d.ID,  D => D.Ignore());
         } 
 
      

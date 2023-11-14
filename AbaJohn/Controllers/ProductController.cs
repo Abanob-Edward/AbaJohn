@@ -58,10 +58,12 @@ namespace AbaJohn.Controllers
             };
             return View(model);
         }
-        public IActionResult ShowProductsFilter(string ProductGender, double? MinPrice, double? MaxPrice,
+
+        // remmber to but parmeter in class isted of  multi parmeter 
+        public IActionResult ShowProductsFilter(string ProductGender, string Category , double? MinPrice, double? MaxPrice,
          string Color,string size ,   int PageNo = 1)
         {
-            var productList = productRepository.ProductsFilter(ProductGender, MinPrice, MaxPrice, Color, size);
+            var productList = productRepository.ProductsFilter(ProductGender, Category, MinPrice, MaxPrice, Color, size);
 
             var model = new ProductListVM_Paging
             {

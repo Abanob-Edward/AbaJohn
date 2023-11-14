@@ -1,4 +1,6 @@
 ﻿using AbaJohn.Models;
+using AbaJohn.ViewModel;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace AbaJohn.Services.Itemss
@@ -6,33 +8,47 @@ namespace AbaJohn.Services.Itemss
     public class ItemRepository : IItem
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public ItemRepository(ApplicationDbContext context)
+        public ItemRepository(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
+        }
+        public  Item getItemFormItemVM(ItemViewModel itemVm)
+        {
+            Item item = _mapper.Map<Item>(itemVm);
+            item.ID = (int)itemVm.ID;
+
+            return item;
         }
         public List<Item> GetItemsForPrudect(int ProID)
         {
-          return  _context.item.Where(i=>i.productID == ProID).Include(c=>c.Product).ToList();
+            
+            var Items = _context.item.Where(i => i.productID == ProID).Include(c => c.Product).ToList();
+
+          
+            return Items;
         }
         public List<Item> Get_all_items()
         {
             return _context.item.ToList();
         }
 
-        public Item Get_item_byid(int id)
+        public Item Get_item_byid(int? id)
         {
             return _context.item.Include(c=>c.Product).FirstOrDefault(x => x.ID == id);
         }
 
-        public int update_item(int id ,Item new_item)
+        public int update_item(Item new_item)
         {
-            var old_item = _context.item.FirstOrDefault(x => x.ID == id);
+            Item item = _context.item.FirstOrDefault(x => x.ID == new_item.ID);
 
-            old_item.Color = new_item.Color;
-            old_item.size = new_item.size;
-            old_item.Quantity = new_item.Quantity;
-            old_item.productID = new_item.productID;
+            item.size = new_item.size;
+            item.Color = new_item.Color;
+            item.Quantity = new_item.Quantity;
+
+
 
             int update_item = _context.SaveChanges();
             return update_item;
@@ -46,6 +62,18 @@ namespace AbaJohn.Services.Itemss
             return delete;
         }
 
+        public bool CheekItemForProduct(int ProductID, int? itemId)
+        {
+            var productID = Get_item_byid(itemId).productID;
+            if (productID == ProductID)
+            {
+                return true;
+            }
+            else
+                return false;
+
+        
+        }
 
     }
 }
