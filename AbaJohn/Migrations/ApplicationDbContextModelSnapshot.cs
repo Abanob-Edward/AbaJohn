@@ -54,7 +54,7 @@ namespace AbaJohn.Migrations
                     b.HasIndex("User_id")
                         .IsUnique();
 
-                    b.ToTable("Addresses", (string)null);
+                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("AbaJohn.Models.ApplicationUser", b =>
@@ -156,7 +156,7 @@ namespace AbaJohn.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("cartItems", (string)null);
+                    b.ToTable("cartItems");
                 });
 
             modelBuilder.Entity("AbaJohn.Models.Category", b =>
@@ -168,7 +168,6 @@ namespace AbaJohn.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -181,7 +180,7 @@ namespace AbaJohn.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("categories", (string)null);
+                    b.ToTable("categories");
                 });
 
             modelBuilder.Entity("AbaJohn.Models.Item", b =>
@@ -208,7 +207,7 @@ namespace AbaJohn.Migrations
 
                     b.HasIndex("productID");
 
-                    b.ToTable("item", (string)null);
+                    b.ToTable("item");
                 });
 
             modelBuilder.Entity("AbaJohn.Models.Order", b =>
@@ -233,7 +232,7 @@ namespace AbaJohn.Migrations
 
                     b.HasIndex("User_id");
 
-                    b.ToTable("orders", (string)null);
+                    b.ToTable("orders");
                 });
 
             modelBuilder.Entity("AbaJohn.Models.Payment", b =>
@@ -263,7 +262,7 @@ namespace AbaJohn.Migrations
                     b.HasIndex("orderNumber")
                         .IsUnique();
 
-                    b.ToTable("payments", (string)null);
+                    b.ToTable("payments");
                 });
 
             modelBuilder.Entity("AbaJohn.Models.Product", b =>
@@ -309,7 +308,7 @@ namespace AbaJohn.Migrations
 
                     b.HasIndex("SellerID");
 
-                    b.ToTable("products", (string)null);
+                    b.ToTable("products");
                 });
 
             modelBuilder.Entity("AbaJohn.Models.ProductImage", b =>
@@ -344,7 +343,7 @@ namespace AbaJohn.Migrations
                     b.HasIndex("Product_id")
                         .IsUnique();
 
-                    b.ToTable("productImages", (string)null);
+                    b.ToTable("productImages");
                 });
 
             modelBuilder.Entity("CartItemProduct", b =>
@@ -359,7 +358,7 @@ namespace AbaJohn.Migrations
 
                     b.HasIndex("productsID");
 
-                    b.ToTable("CartItemProduct", (string)null);
+                    b.ToTable("CartItemProduct");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -507,7 +506,7 @@ namespace AbaJohn.Migrations
 
                     b.HasIndex("productsID");
 
-                    b.ToTable("OrderProduct", (string)null);
+                    b.ToTable("OrderProduct");
                 });
 
             modelBuilder.Entity("AbaJohn.Models.Address", b =>
@@ -573,15 +572,15 @@ namespace AbaJohn.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AbaJohn.Models.ApplicationUser", "Seller")
+                    b.HasOne("AbaJohn.Models.ApplicationUser", "seller")
                         .WithMany("products")
                         .HasForeignKey("SellerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Seller");
-
                     b.Navigation("category");
+
+                    b.Navigation("seller");
                 });
 
             modelBuilder.Entity("AbaJohn.Models.ProductImage", b =>

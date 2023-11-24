@@ -50,19 +50,20 @@ namespace AbaJohn
            
             return data;
         }
-        public List<productViewModel> ProductsFilter(string GenderName, string? Category, double? MinPrice, double? MaxPrice, string Color, string size)
+        public List<productViewModel> ProductsFilter(string? GenderName, string? Category, double? MinPrice, double? MaxPrice, string Color, string size)
         {
             if (Color == null) { Color = ""; }
             if (size == null) { size = ""; }
             if (Category == null) { Category = ""; }
+            if (GenderName == null) { GenderName = ""; }
 
 
             var productlst = context.products.Include(I => I.images).Include(c => c.category).Include(i => i.Items)
                 .Where(p => (p.price >= MinPrice && p.price <= MaxPrice) || (MinPrice == 0 && MaxPrice == 0) || (MinPrice == null && MaxPrice == null))
-                .Where(G => (G.prodeuctGender.ToLower() == GenderName.ToLower()) || G.prodeuctGender ==null)
+                .Where(G => (!string.IsNullOrEmpty(G.prodeuctGender) && G.prodeuctGender.ToLower() == GenderName.ToLower()) || string.IsNullOrEmpty(GenderName))
                 .Where(p => (!string.IsNullOrEmpty(p.category.Name) && p.category.Name.ToLower() == Category.ToLower() ) || string.IsNullOrEmpty(Category))
                 .Where(p => p.Items.Any(c=> !string.IsNullOrEmpty(c.size)&& c.size.ToLower() == size.ToLower()) || string.IsNullOrEmpty(size))
-                .Where(p => p.Items.Any(c=> !string.IsNullOrEmpty(c.Color)&& c.size == Color) || string.IsNullOrEmpty(Color))
+                .Where(p => p.Items.Any(c=> !string.IsNullOrEmpty(c.Color)&& c.Color == Color) || string.IsNullOrEmpty(Color))
                 .ToList();
             var DataAfterFilter = _mapper.Map<List<productViewModel>>(productlst);
 
@@ -348,12 +349,16 @@ namespace AbaJohn
         {
             Product product = context.products.FirstOrDefault(s => s.ID == id);
             ProductImage product_imag = context.productImages.FirstOrDefault(s => s.Product_id == id);
-            var item = context.item.Where(s => s.productID == id).ToList();
+            var items = context.item.Where(s => s.productID == id).ToList();
             
             
             context.Remove(product);
             context.Remove(product_imag);
-            context.Remove(item);
+            foreach (var item in items)
+            {
+                context.Remove(item);
+            }
+           
 
             int delete = context.SaveChanges();
             return delete;

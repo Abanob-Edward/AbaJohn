@@ -26,6 +26,11 @@ namespace AbaJohn.Controllers
             categoeryRepository = _categoeryRepository;
             itemRepository = _item;
         }
+        public IActionResult ProductDetails(int Id)
+        {
+            var product = productRepository.get_product_byid(Id);
+            return View(product);
+        }
         [Authorize(Roles = "admin")]
         public IActionResult Show_all_product()
         {
@@ -53,7 +58,7 @@ namespace AbaJohn.Controllers
             {
                 products = productList,
                 CurrentPage = PageNo,
-                NoOfRecordPerPage = 2,
+                NoOfRecordPerPage = 9,
                 ProductGender = ProductGender
             };
             return View(model);
@@ -69,7 +74,7 @@ namespace AbaJohn.Controllers
             {
                 products = productList,
                 CurrentPage = PageNo,
-                NoOfRecordPerPage = 2,
+                NoOfRecordPerPage = 9,
                 ProductGender = ProductGender
             };
            return PartialView("_ProductsAndPagingpartial", model);
@@ -141,7 +146,7 @@ namespace AbaJohn.Controllers
             try
             {
                 productRepository.Delete(id);
-                return RedirectToAction("Show_all_product", "product");
+                return RedirectToAction("ShowProductSeller", "product");
             }
             catch (Exception ex)
             {

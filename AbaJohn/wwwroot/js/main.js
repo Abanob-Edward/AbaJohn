@@ -253,7 +253,7 @@ function hasScrolled() {
     });
 
     /*------------------
-        Achieve Counter
+        Achieve Counter   
     --------------------*/
     $('.cn_num').each(function () {
         $(this).prop('Counter', 0).animate({

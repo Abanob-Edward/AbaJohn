@@ -1,5 +1,6 @@
 ﻿using AbaJohn.Models;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace AbaJohn.ViewModel
 {
@@ -17,12 +18,15 @@ namespace AbaJohn.ViewModel
 
         public string Description { get; set; }
 
-      
-  /*      [Required(ErrorMessage = "Please select file")]*/
-        public IFormFile? BaseFileImg { get; set; }
 
+        /*      [Required(ErrorMessage = "Please select file")]*/
+        [AllowNull]
+        public IFormFile? BaseFileImg { get; set; }
+        [AllowNull]
         public IFormFile? Img1File { get; set; }
+        [AllowNull]
         public IFormFile? Img2File { get; set; }
+        [AllowNull]
         public IFormFile? Img3File { get; set; }
         public string? BaseImg { get; set; }
         public string? Img1 { get; set; }

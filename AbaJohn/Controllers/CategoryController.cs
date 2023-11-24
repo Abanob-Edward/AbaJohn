@@ -42,7 +42,7 @@ namespace AbaJohn.Controllers
             {
 
                 categoeryRepository.create(new_category_view);
-                return RedirectToAction("index", "home");
+                return RedirectToAction("Show_all_category", "Category");
             }
             else
             {

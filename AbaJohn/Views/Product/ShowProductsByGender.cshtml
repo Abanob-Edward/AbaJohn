@@ -22,12 +22,24 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="shop__sidebar">
-                    <div class="shop__sidebar__search">
-                        <form action="#">
-                            <input type="text" placeholder="Search...">
-                            <button type="submit"><span class="icon_search"></span></button>
-                        </form>
+                    <div class="shop__sidebar__search" @*style="width:80%"*@>
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <form action="#">
+                                    <input type="text" placeholder="Search...">
+                                    <button type="submit"><span class="icon_search"></span></button>
+                                </form>
+                            </div>
+                            <div class="col-lg-4">
+                                <p onclick="ClearAll()" style="float:right;">
+                                    <a value="Men" href="#" style="color:red ;">Clear All</a>
+                                </p>
+                            </div>
+
+                        </div>
+                      
                     </div>
+                 
                     <div class="shop__sidebar__accordion">
                         <div class="accordion" id="accordionExample">
                             <div class="card">
@@ -38,15 +50,14 @@
                                     <div class="card-body">
                                         <div class="shop__sidebar__categories">
                                             <ul class="nice-scroll">
-                                                <li><a onclick="getGender(this),Bindmodel()" value="Men" href="#">Men </a></li>
-                                                <li><a onclick="getGender(this),Bindmodel()" value="women" href="#">Women</a></li>
-                                             
-                                                <li><a onclick="getGender(this),Bindmodel()" value="Accessories" href="#">Accessories </a></li>
-                                                <li><a onclick="getGender(this),Bindmodel()" value="Kids" href="#">Kids </a></li>
 
-
-                                                
-                                          
+                                                <li onclick="Clear('gender')" style="float:right;">
+                                                    <a value="Men" href="#" style="color:red ;">Clear </a>
+                                                </li>
+                                                <li><a onclick="getGender(this),SetColor(this,'gender')" value="Men" name="gender" href="#">Men </a></li>
+                                                <li><a onclick="getGender(this),SetColor(this,'gender')" value="women" name="gender" href="#">Women</a></li>
+                                                <li><a onclick="getGender(this),SetColor(this,'gender')" value="Accessories" name="gender" href="#">Accessories </a></li>
+                                                <li><a onclick="getGender(this),SetColor(this,'gender')" value="Kids" name="gender" href="#">Kids </a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -60,12 +71,15 @@
                                     <div class="card-body">
                                         <div class="shop__sidebar__price" id="PrRng">
                                             <ul>
-                                                <li onclick="getPrice(0 ,50)  ,Bindmodel()"> <a href="#">$0.00 - $50.00</a></li>
-                                                <li onclick="getPrice(50,100), Bindmodel()">   <a href="#">$50.00 - $100.00</a></li>
-                                                <li onclick="getPrice(100,150),Bindmodel()">  <a href="#">$100.00 - $150.00</a></li>
-                                                <li onclick="getPrice(150,200),Bindmodel()">  <a href="#">$150.00 - $200.00</a></li>
-                                                <li onclick="getPrice(200,250),Bindmodel()">  <a href="#">$200.00 - $250.00</a></li>
-                                                <li onclick="getPrice(250,5000),Bindmodel()"> <a href="#">250.00+</a></li>
+                                                <li onclick="Clear('Price')" style="float:right;">
+                                                    <a value="Men" href="#" style="color:red ;">Clear </a>
+                                                </li>
+                                                <li>    <a name="Price" href="#" onclick="getPrice(0 ,50),SetColor(this,  'Price')" >$0.00 - $50.00</a></li>
+                                                <li>   <a name="Price" href="#"  onclick="getPrice(50,100),SetColor(this, 'Price')" >$50.00 - $100.00</a></li>
+                                                <li>  <a name="Price" href="#"   onclick="getPrice(100,150),SetColor(this,'Price')" >$100.00 - $150.00</a></li>
+                                                <li>  <a name="Price" href="#"   onclick="getPrice(150,200),SetColor(this,'Price')" >$150.00 - $200.00</a></li>
+                                                <li>  <a name="Price" href="#"   onclick="getPrice(200,250),SetColor(this,'Price')" >$200.00 - $250.00</a></li>
+                                                <li> <a name="Price" href="#"    onclick="getPrice(250,5000),SetColor(this,'Price')">250.00+</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -79,9 +93,12 @@
                                     <div class="card-body">
                                         <div class="shop__sidebar__brand">
                                             <ul>
-                                                <li><a onclick="getCategory(this),Bindmodel()" href="#">Bags</a></li>
-                                                <li><a onclick="getCategory(this),Bindmodel()" href="#">Clothing </a></li>
-                                                <li><a onclick="getCategory(this),Bindmodel()" href="#">Shoes </a></li>
+                                                <li onclick="Clear('Category')" style="float:right;">
+                                                    <a value="Men" href="#" style="color:red ;">Clear </a>
+                                                </li>
+                                                <li><a name="Category" onclick="getCategory(this),SetColor(this,'Category')" href="#">Bags</a></li>
+                                                <li><a name="Category" onclick="getCategory(this),SetColor(this,'Category')" href="#">Clothing </a></li>
+                                                <li><a name="Category" onclick="getCategory(this),SetColor(this,'Category')" href="#">Shoes </a></li>
                                                 <li><a href="#">Louis Vuitton</a></li>
                                                 <li><a href="#">Chanel</a></li>
                                                 <li><a href="#">Hermes</a></li>
@@ -98,36 +115,39 @@
                                 <div id="collapseFour" class="collapse show" data-parent="#accordionExample">
                                     <div class="card-body">
                                         <div class="shop__sidebar__size">
-                                            <label for="xs" onclick="getSize('XS'),Bindmodel()">
+                                            <p onclick="Clear('Size')" style="float:right;">
+                                                <a value="Men" href="#" style="color:red ;">Clear </a>
+                                            <p/>
+                                            <label for="xs" name="Size" onclick="getSize('XS'),SetColor(this,'Size')">
                                                 xs
                                                @* <input type="radio" id="xs">*@
                                             </label>
-                                            <label for="sm" onclick="getSize('S'),Bindmodel()">
+                                            <label for="sm" name="Size" onclick="getSize('S'),SetColor(this,'Size')">
                                                 s
                                                @* <input type="radio" id="sm">*@
                                             </label>
-                                            <label for="md" onclick="getSize('M'),Bindmodel()">
+                                            <label for="md" name="Size" onclick="getSize('M'),SetColor(this,'Size')">
                                                 m
                                                @* <input type="radio" id="md">*@
                                             </label> 
-                                            <label for="l" onclick="getSize('L'),Bindmodel()">
+                                            <label for="l" name="Size" onclick="getSize('L'),SetColor(this,'Size')">
                                                 l
                                                @* <input type="radio" id="l">*@
                                             </label>
-                                            <label for="xl" onclick="getSize('XL'),Bindmodel()">
+                                            <label for="xl" name="Size"  onclick="getSize('XL'),SetColor(this,'Size')">
                                                 xl
                                                @* <input type="radio" id="xl">*@
                                             </label >
-                                            <label for="2xl" onclick="getSize('2Xl'),Bindmodel()">
+                                            <label for="2xl" name="Size" onclick="getSize('2Xl'),SetColor(this,'Size')">
                                                 2xl
                                                @* <input type="radio" id="2xl">*@
                                             </label>
                                           
-                                            <label for="3xl" onclick="getSize('3XL'),Bindmodel()">
+                                            <label for="3xl" name="Size" onclick="getSize('3XL'),SetColor(this,'Size')">
                                                 3xl
                                                @* <input type="radio" id="3xl">*@
                                             </label>
-                                            <label for="4xl" onclick="getSize('4XL'),Bindmodel()">
+                                            <label for="4xl" name="Size" onclick="getSize('4XL'),SetColor(this,'Size')">
                                                 4xl
                                                @* <input type="radio" id="4xl">*@
                                             </label>
@@ -142,31 +162,34 @@
                                 <div id="collapseFive" class="collapse show" data-parent="#accordionExample">
                                     <div class="card-body">
                                         <div class="shop__sidebar__color">
-                                            <label class="c-1" for="sp-1" onclick="getColor('Black') ,Bindmodel()">
+                                            <p onclick="Clear('Color')" style="float:right;">
+                                                <a value="Men" href="#" style="color:red ;">Clear </a>
+                                            <p />
+                                            <label class="c-1" for="sp-1" onclick="getColor('Black') ,SetColor(this,'Color')" name="Color">
                                                 @*<input type="radio" id="sp-1">*@
                                             </label>
-                                            <label class="c-2" for="sp-2" onclick="getColor('blue') ,Bindmodel()">
+                                            <label class="c-2" for="sp-2" onclick="getColor('blue')  ,SetColor(this,'Color')" name="Color">
                                                @* <input type="radio" id="sp-2">*@
                                             </label>
-                                            <label class="c-3" for="sp-3" onclick="getColor('Yellow'),Bindmodel()">
+                                            <label class="c-3" for="sp-3" onclick="getColor('Yellow') ,SetColor(this,'Color')" name="Color">
                                                 @*<input type="radio" id="sp-3">*@
                                             </label>
-                                            <label class="c-4" for="sp-4" onclick="getColor('Gray'),Bindmodel()">
+                                            <label class="c-4" for="sp-4" onclick="getColor('Gray') ,SetColor(this,'Color')" name="Color">
                                                 @*<input type="radio" id="sp-4">*@
                                             </label>
-                                            <label class="c-5" for="sp-5" onclick="getColor('Green'),Bindmodel()">
+                                            <label class="c-5" for="sp-5" onclick="getColor('Green') ,SetColor(this,'Color')" name="Color">
                                                 @*<input type="radio" id="sp-5">*@
                                             </label>
-                                            <label class="c-6" for="sp-6" onclick="getColor('Beige'),Bindmodel()">
+                                            <label class="c-6" for="sp-6" onclick="getColor('Beige') ,SetColor(this,'Color')" name="Color">
                                                @* <input type="radio" id="sp-6">*@
                                             </label>
-                                            <label class="c-7" for="sp-7" onclick="getColor('Orange'),Bindmodel()">
+                                            <label class="c-7" for="sp-7" onclick="getColor('Orange') ,SetColor(this,'Color')" name="Color">
                                                @* <input type="radio" id="sp-7">*@
                                             </label>
-                                            <label class="c-8" for="sp-8" onclick="getColor('Red') ,Bindmodel()">
+                                            <label class="c-8" for="sp-8" onclick="getColor('Red') ,SetColor(this,'Color')" name="Color">
                                                @* <input type="radio" id="sp-8">*@
                                             </label>
-                                            <label class="c-9" for="sp-9" onclick="getColor('White'),Bindmodel()">
+                                            <label class="c-9" for="sp-9" onclick="getColor('White'),SetColor(this,'Color')" name="Color">
                                                @* <input type="radio" id="sp-9">*@
                                             </label>
                                         </div>
@@ -191,6 +214,7 @@
                                     </div>
                                 </div>
                             </div>
+                         
                         </div>
                     </div>
                 </div>
@@ -220,47 +244,50 @@
                     </div>
                     <div class="row" >
 
-                        @foreach (var product in Model.CalculateData())
-                        {
-                            <div class="col-lg-4 col-md-6 col-sm-6">
-                                <div class="product__item">
+                         @foreach (var product in Model.CalculateData())
+                         {
+                            <a asp-action="ProductDetails" asp-controller="product" asp-route-Id="@product.ID">
 
-                                    <div class="product__item__pic set-bg" data-setbg="../files/productimg/@product.BaseImg">
-                                        <ul class="product__hover">
-                                            <li><a href="#"><img src="../img/icon/heart.png" alt=""></a></li>
-                                            <li>
-                                                <a href="#"><img src="../img/icon/compare.png" alt=""> <span>Compare</span></a>
-                                            </li>
-                                            <li><a href="#"><img src="../img/icon/search.png" alt=""></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="product__item__text">
-                                        <h6>@product.Name</h6>
-                                        @*   <h6>@product.title</h6>*@
-                                        <a href="#" class="add-cart">+ Add To Cart</a>
-                                        <div class="rating">
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <h5>$@product.price</h5>
-                                        <div class="product__color__select">
-                                            <label for="pc-4">
-                                                <input type="radio" id="pc-4">
-                                            </label>
-                                            <label class="active black" for="pc-5">
-                                                <input type="radio" id="pc-5">
-                                            </label>
-                                            <label class="grey" for="pc-6">
-                                                <input type="radio" id="pc-6">
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        }
+
+                                 <div class="col-lg-4 col-md-6 col-sm-6">
+                                     <div class="product__item">
+                                      
+                                             <div class="product__item__pic set-bg" data-setbg="../files/productimg/@product.BaseImg">
+                                                 <ul class="product__hover">
+                                                     <li><img src="../img/icon/heart.png" alt=""></li>
+                                                     <li><img src="../img/icon/compare.png" alt=""> <span>Compare</span></li>
+                                                     <li><img src="../img/icon/search.png" alt=""></li>
+                                                 </ul>
+                                             </div>
+                                             <div class="product__item__text">
+                                                 <h6>@product.Name</h6>
+                                                 @*   <h6>@product.title</h6>*@
+                                                 <a href="#" class="add-cart">+ Add To Cart</a>
+                                                 <div class="rating">
+                                                     <i class="fa fa-star-o"></i>
+                                                     <i class="fa fa-star-o"></i>
+                                                     <i class="fa fa-star-o"></i>
+                                                     <i class="fa fa-star-o"></i>
+                                                     <i class="fa fa-star-o"></i>
+                                                 </div>
+                                                 <h5>$@product.price</h5>
+                                                 <div class="product__color__select">
+                                                     <label for="pc-4">
+                                                         <input type="radio" id="pc-4">
+                                                     </label>
+                                                     <label class="active black" for="pc-5">
+                                                         <input type="radio" id="pc-5">
+                                                     </label>
+                                                     <label class="grey" for="pc-6">
+                                                         <input type="radio" id="pc-6">
+                                                     </label>
+                                                 </div>
+                                             </div>
+                                       
+                                     </div>
+                                 </div>
+                             </a>
+                         }
 
                     </div>
                     @{
@@ -315,29 +342,96 @@
 <script>
     var Gender = "@Model.ProductGender"  ;
     var  Category, price0, price1, Color, Size;
+
+    function ClearAll(){
+        Gender = '';
+        ClearColor('gender');
+        Category = '';
+        ClearColor('Category');
+        price0 = '';
+        price1 = '';
+        ClearColor('Price');
+        Color = '';
+        ClearColor('Color');
+        Size = '';
+        ClearColor('Size');
+        Bindmodel();
+
+    }
+  
+    function Clear(SectionName){
+      // clear color for all link
+         ClearColor(SectionName);
+      // set gender = null
+        if (SectionName == 'gender'){
+            Gender = "";
+        } 
+        if (SectionName == 'Price'){
+            price0 ='';
+            price1 ='';
+        }
+        if (SectionName == 'Category') {
+            Category = "";
+        } 
+        if (SectionName == 'Size') {
+            Size = "";
+        }
+        if (SectionName == 'Color') {
+            Color = "";
+        }
+
+        Bindmodel();
+    }
+
+    function ClearColor(name){
+        var elements = document.getElementsByName(name);
+        for (const element of elements) {
+            element.style.color = '';
+            element.style.border = '';
+        }
+    }
+     function SetColor(val,name){
+        var elements = document.getElementsByName(name);
+        for (const element of elements) {
+            element.style.color = '';
+            element.style.border = '';
+        }
+      //  console.log(val)
+        val.style.color = 'black';
+        if(name== 'Size'){
+          val.style.border = '1px solid #000000';
+        } 
+        if(name== 'Color'){
+          val.style.border = '3px solid #000000';
+          val.style.width = '35px';
+            val.style.height = '35px';
+        }
+       
+    }
+
  
     
     function getGender(val){
         Gender = val.getAttribute("value");
-        console.log(Gender)
+        Bindmodel()
     }
     function getCategory(val) {
         Category = val.getAttribute("value");
-        console.log(Category)
+        Bindmodel()
     }
 
     function getPrice(p0 ,p1){
         price0 =p0;
         price1 =p1;
-        console.log(p0,p1)
+        Bindmodel()
     }
     function getSize(val){
         Size = val;
-        console.log(Size)
+        Bindmodel()
     }
     function getColor(Col){
         Color = Col;
-        console.log(Color)
+        Bindmodel()
     }
   
     // bind the data from Global variable    string Color,string size
@@ -362,4 +456,6 @@
             }
         });
     }
+
+    
 </script>

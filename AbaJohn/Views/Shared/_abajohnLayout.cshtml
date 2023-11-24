@@ -147,7 +147,7 @@
                     <div class="col-lg-6 col-md-6">
                         <nav class="header__menu mobile-menu">
                             <ul>
-                                <li class="active"><a href="./index.html">@loclizer["Home"]</a></li>
+                                <li class="active"><a asp-action="index" asp-controller="home">@loclizer["Home"]</a></li>
                                 <li>
                                     <a href="#">Category</a>
                                     <ul class="dropdown">
@@ -281,23 +281,19 @@
     </div>
     <!-- Search End -->
 
-    <!-- Js Plugins -->
-    <script src="~/js/jquery-3.3.1.min.js"></script>
-    <script src="~/js/bootstrap.min.js"></script>
-
-    <script src="~/js/jquery.nicescroll.min.js"></script>
-    <script src="~/js/jquery.magnific-popup.min.js"></script>
-    <script src="~/js/jquery.countdown.min.js"></script>
-    <script src="~/js/jquery.slicknav.js"></script>
-    <script src="~/js/mixitup.min.js"></script>
-    <script src="~/js/owl.carousel.min.js"></script>
-    <script src="~/js/main.js"></script>
-    @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 </html>
 
-<script>
-  
 
-</script>
+<!-- Js Plugins -->
+<script src="~/js/jquery-3.3.1.min.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/js/jquery.nicescroll.min.js"></script>
+<script src="~/js/jquery.magnific-popup.min.js"></script>
+<script src="~/js/jquery.countdown.min.js"></script>
+<script src="~/js/jquery.slicknav.js"></script>
+<script src="~/js/mixitup.min.js"></script>
+<script src="~/js/owl.carousel.min.js"></script>
+<script src="~/js/main.js"></script>
+@await RenderSectionAsync("Scripts", required: false)
