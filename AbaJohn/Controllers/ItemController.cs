@@ -45,7 +45,6 @@ namespace AbaJohn.Controllers
                     Product = productRepository.get_product_byid(ProductID),
                     Colors = Colors_and_Sizes.getcolors(),
                     Sizes = Colors_and_Sizes.getSizes(),
-
                     productID = ProductID,
                     Items= items,
                     ReturnUrl= "ShowItemsForProdcut"
@@ -123,7 +122,12 @@ namespace AbaJohn.Controllers
          
 
         }
-       
+        public IActionResult GetItemQuantity(string Color, string Size,int ProID)
+        {
+            // make fuanction to get the quantity of item where color and size equal 
+            var quantity  = itemRepository.GetItemQuantityByColorAndSize(Color, Size, ProID).ToString();
+            return Content(quantity);
+        }
         public IActionResult Edit_item(int ID,int ProductID)
         {
             TempData["massege"] = "لم نفسك عيييب عيب ";

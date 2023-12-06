@@ -10,6 +10,7 @@ namespace AbaJohn.Services.Itemss
         List<Item> Get_all_items();
         bool CheekItemForProduct(int ProductID,int? itemId);
         Item Get_item_byid(int? id);
+        int GetItemQuantityByColorAndSize(string? Color, string? Size,int ProID);
         int update_item( Item new_item);
         int Delete(int id);
     }

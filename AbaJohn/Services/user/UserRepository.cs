@@ -25,6 +25,11 @@ namespace AbaJohn.Services.user
             return uniqueName;
         }
 
+        public string GetCurrentUserID(string UserName)
+        {
+            return context.Users.FirstOrDefault(x => x.UserName == UserName).Id;
+        }
+
         public UserWithaddressViewModel GetUserInfo(string username)
         {
 

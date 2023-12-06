@@ -40,6 +40,7 @@ namespace AbaJohn.Models
         public DbSet<ProductImage> productImages{ get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Item> item { get; set; }
+        public DbSet<CartItemProduct> cartItemProducts { get; set; }
     }
 
 

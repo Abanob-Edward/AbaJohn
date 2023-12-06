@@ -4,7 +4,7 @@
   }
 
   <style>
-    .product__item__pic {
+    .picSide {
         height: 120px;
         width: 95px;
     }
@@ -31,28 +31,28 @@
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">
-                                 <div class="product__item__pic set-bg" data-setbg="../../files/productimg/@Model.BaseImg"
+                                <div class="product__item__pic set-bg picSide" data-setbg="../../files/productimg/@Model.BaseImg"
                                          style="background-image: url(&quot;../../files/productimg/@Model.BaseImg&quot;); ">
                                 </div>
                             </a>
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">
-                                <div class="product__item__pic set-bg" data-setbg="../../files/productimg/@Model.Img1"
+                                <div class="product__item__pic set-bg picSide" data-setbg="../../files/productimg/@Model.Img1"
                                      style="background-image: url(&quot;../../files/productimg/@Model.Img1&quot;);">
                                 </div>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab" >
-                                <div class="product__item__pic set-bg" data-setbg="../../files/productimg/@Model.Img2"
+                                <div class="product__item__pic set-bg picSide" data-setbg="../../files/productimg/@Model.Img2"
                                      style="background-image: url(&quot;../../files/productimg/@Model.Img2&quot;);">
                                 </div>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#tabs-4" role="tab">
-                                <div class="product__item__pic set-bg" data-setbg="../../files/productimg/@Model.Img3"
+                                <div class="product__item__pic set-bg picSide" data-setbg="../../files/productimg/@Model.Img3"
                                      style="background-image: url(&quot;../../files/productimg/@Model.Img3&quot;);">
                                 </div>
                             </a>
@@ -79,7 +79,8 @@
                         <div class="tab-pane" id="tabs-4" role="tabpanel">
                             <div class="product__details__pic__item">
                                 <img src="~/files/productimg/@Model.Img3" class="Baseimage" alt="">
-                                <a href="https://www.youtube.com/watch?v=8PJ3_p7VqHw&list=RD8PJ3_p7VqHw&start_radio=1" class="video-popup"><i class="fa fa-play"></i></a>
+                                 @*youtube line here *@
+                                <a href="#" class="video-popup"><i class="fa fa-play"></i></a>
                             </div>
                         </div>
                     </div>
@@ -102,70 +103,56 @@
                             <i class="fa fa-star-o"></i>
                             <span> - 5 Reviews</span>
                         </div>
-                        <h3>$270.00 <span>70.00</span></h3>
+                        <h3>$@Model.price<span>30.00</span></h3>
                         <p>
-                            Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable
-                            cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening
-                            with placket.
+                            @Model.title
                         </p>
                         <div class="product__details__option">
                             <div class="product__details__option__size">
                                 <span>Size:</span>
-                                <label for="xxl">
-                                    xxl
-                                    <input type="radio" id="xxl">
-                                </label>
-                                <label class="active" for="xl">
-                                    xl
-                                    <input type="radio" id="xl">
-                                </label>
-                                <label for="l">
-                                    l
-                                    <input type="radio" id="l">
-                                </label>
-                                <label for="sm">
-                                    s
-                                    <input type="radio" id="sm">
-                                </label>
+                                @foreach (var item in Model.Sizes)
+                                {
+                                   // var size = item.Name;
+                                    <label onclick="SetColor(this,'Size'),getSize('@item.Name')" name="Size" for="@item.Name">
+                                       @item.Name
+                                        <input type="radio" id="@item.Name">
+                                    </label>
+                                }
+                              
+                             
+
                             </div>
                             <div class="product__details__option__color">
                                 <span>Color:</span>
-                                <label class="c-1" for="sp-1">
-                                    <input type="radio" id="sp-1">
-                                </label>
-                                <label class="c-2" for="sp-2">
-                                    <input type="radio" id="sp-2">
-                                </label>
-                                <label class="c-3" for="sp-3">
-                                    <input type="radio" id="sp-3">
-                                </label>
-                                <label class="c-4" for="sp-4">
-                                    <input type="radio" id="sp-4">
-                                </label>
-                                <label class="c-9" for="sp-9">
-                                    <input type="radio" id="sp-9">
-                                </label>
+
+                                @foreach (var item in Model.Colors)
+                                {
+                                    <label onclick="SetColor(this,'Color'),getColor('@item.Name')" style="background:@item.Value" name="Color" for="sp-1">
+                                        <input type="radio" value="@item.Name" id="@item.Name">
+                                    </label>
+                                }
+                 
                             </div>
                         </div>
                         <div class="product__details__cart__option">
                             <div class="quantity">
-                                <div class="pro-qty">
-                                    <input type="text" value="1">
+                                <div class="pro-qty" >
+                                    <input type="text" id="quantity" value="">
                                 </div>
                             </div>
-                            <a href="#" class="primary-btn">add to cart</a>
+                            <a asp-controller="Cartitem" asp-action="AddtoCart" asp-route-size="" asp-route-color="onclick='returnColor()'" asp-route-ProID="@Model.ID" class="primary-btn">add to cart</a>
                         </div>
                         <div class="product__details__btns__option">
-                            <a href="#"><i class="fa fa-heart"></i> add to wishlist</a>
-                            <a href="#"><i class="fa fa-exchange"></i> Add To Compare</a>
+                         @* <a href="#"><i class="fa fa-heart"></i> add to wishlist</a>
+                            <a href="#"><i class="fa fa-exchange"></i> Add To Compare</a>*@
                         </div>
                         <div class="product__details__last__option">
                             <h5><span>Guaranteed Safe Checkout</span></h5>
-                            <img src="img/shop-details/details-payment.png" alt="">
+                            <img src="../../img/shop-details/details-payment.png" alt="">
                             <ul>
-                                <li><span>SKU:</span> 3812912</li>
-                                <li><span>Categories:</span> Clothes</li>
-                                <li><span>Tag:</span> Clothes, Skin, Body</li>
+                                <li><span>SKU:</span> @Model.Code</li>
+                                <li><span>Categories:</span> @Model.CategoryName</li>
+                                <li><span>Tag:</span> @Model.prodeuctGender</li>
                             </ul>
                         </div>
                     </div>
@@ -332,12 +319,12 @@
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
                 <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">
+                    <div class="product__item__pic set-bg" data-setbg="../../img/product/product-1.jpg">
                         <span class="label">New</span>
                         <ul class="product__hover">
-                            <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
-                            <li><a href="#"><img src="img/icon/compare.png" alt=""> <span>Compare</span></a></li>
-                            <li><a href="#"><img src="img/icon/search.png" alt=""></a></li>
+                            <li><a href="#"><img src="../../img/icon/heart.png" alt=""></a></li>
+                            <li><a href="#"><img src="../../img/icon/compare.png" alt=""> <span>Compare</span></a></li>
+                            <li><a href="#"><img src="../../img/icon/search.png" alt=""></a></li>
                         </ul>
                     </div>
                     <div class="product__item__text">
@@ -367,11 +354,11 @@
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
                 <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="img/product/product-2.jpg">
+                    <div class="product__item__pic set-bg" data-setbg="../../img/product/product-2.jpg">
                         <ul class="product__hover">
-                            <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
-                            <li><a href="#"><img src="img/icon/compare.png" alt=""> <span>Compare</span></a></li>
-                            <li><a href="#"><img src="img/icon/search.png" alt=""></a></li>
+                            <li><a href="#"><img src="../../img/icon/heart.png" alt=""></a></li>
+                            <li><a href="#"><img src="../../img/icon/compare.png" alt=""> <span>Compare</span></a></li>
+                            <li><a href="#"><img src="../../img/icon/search.png" alt=""></a></li>
                         </ul>
                     </div>
                     <div class="product__item__text">
@@ -401,12 +388,12 @@
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
                 <div class="product__item sale">
-                    <div class="product__item__pic set-bg" data-setbg="img/product/product-3.jpg">
+                    <div class="product__item__pic set-bg" data-setbg="../../img/product/product-3.jpg">
                         <span class="label">Sale</span>
                         <ul class="product__hover">
-                            <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
-                            <li><a href="#"><img src="img/icon/compare.png" alt=""> <span>Compare</span></a></li>
-                            <li><a href="#"><img src="img/icon/search.png" alt=""></a></li>
+                            <li><a href="#"><img src="../../img/icon/heart.png" alt=""></a></li>
+                            <li><a href="#"><img src="../../img/icon/compare.png" alt=""> <span>Compare</span></a></li>
+                            <li><a href="#"><img src="../../img/icon/search.png" alt=""></a></li>
                         </ul>
                     </div>
                     <div class="product__item__text">
@@ -436,11 +423,11 @@
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
                 <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="img/product/product-4.jpg">
+                    <div class="product__item__pic set-bg" data-setbg="../../img/product/product-4.jpg">
                         <ul class="product__hover">
-                            <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
-                            <li><a href="#"><img src="img/icon/compare.png" alt=""> <span>Compare</span></a></li>
-                            <li><a href="#"><img src="img/icon/search.png" alt=""></a></li>
+                            <li><a href="#"><img src="../../img/icon/heart.png" alt=""></a></li>
+                            <li><a href="#"><img src="../../img/icon/compare.png" alt=""> <span>Compare</span></a></li>
+                            <li><a href="#"><img src="../../img/icon/search.png" alt=""></a></li>
                         </ul>
                     </div>
                     <div class="product__item__text">
@@ -472,3 +459,69 @@
     </div>
 </section>
 <!-- Related Section End -->
+<script>
+    function SetColor(val, name) {
+        var elements = document.getElementsByName(name);
+   
+        for (const element of elements) {
+            element.style.border = '';
+            if (name == 'Color') {
+                element.style.width = '30px';
+                element.style.height = '30px';
+            }
+
+       
+            element.classList.remove('active');
+        
+        }
+        if (name == 'Size') {
+            val.classList.add('active');
+        
+        }
+        if (name == 'Color') {
+            val.style.border = '3px solid #000000';
+            val.style.width = '35px';
+            val.style.height = '35px';
+        }
+
+    }
+    var Color, Size;
+    var ID =@Model.ID;
+    
+    function getSize(val) {
+        Size = val;
+        GetQuantity()
+    }
+    function getColor(Col) {
+        Color = Col;
+       GetQuantity()
+    }
+
+    function  returnColor() {
+        return Color;
+    }
+    function GetQuantity() {
+
+
+
+        $.ajax({
+            type: "GET",
+            url: "/Item/GetItemQuantity",
+            data: {
+               
+                Color: Color, Size: Size, ProID: ID
+            },
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+            //  console.log(data);
+              //  alert('success' + data);
+              //  $('#quantity').html(data);
+                document.getElementById('quantity').value = data;
+            },
+            error: function () {
+                alert('Error');
+            }
+        });
+    }
+
+</script>

@@ -13,7 +13,8 @@ namespace AbaJohn.Models
         public string? Description { get; set; }
         public List<Item> Items { get; set; }
         public ICollection<Order> orders { get; set; }
-        public ICollection<CartItem> CartItem { get; set; }
+        
+        //  public ICollection<CartItem> CartItem { get; set; }
         public int CategoryID { get; set; }
         [ForeignKey("CategoryID")]
         public Category category { get; set; }
@@ -25,5 +26,6 @@ namespace AbaJohn.Models
         [ForeignKey("SellerID")]
         public ApplicationUser seller { get; set; }
     }
+ 
 
 }

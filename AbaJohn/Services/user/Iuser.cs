@@ -8,5 +8,7 @@ namespace AbaJohn.Services.user
          UserWithaddressViewModel GetUserInfo (string username) ;
          int UpdateUserInfo (UserWithaddressViewModel user ,string RoleName);
           List<ApplicationUser> ShowUsers(string RoleName);
+
+        string? GetCurrentUserID(string? UserName);
     }
 }

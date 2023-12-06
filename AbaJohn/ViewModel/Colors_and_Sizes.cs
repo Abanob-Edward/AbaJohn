@@ -9,14 +9,16 @@
         public static List<Colors_and_Sizes> getSizes()
         {
             List<Colors_and_Sizes> Size = new List<Colors_and_Sizes>();
-            Size.Add(new Colors_and_Sizes() { ID=1, Name="XS",  Value=" X Small"});
-            Size.Add(new Colors_and_Sizes() { ID=1, Name="S",   Value=" Small"});
-            Size.Add(new Colors_and_Sizes() { ID=1, Name="M",   Value= "  Medium" });
-            Size.Add(new Colors_and_Sizes() { ID=1, Name="XL",  Value=" X Large"});
-            Size.Add(new Colors_and_Sizes() { ID=1, Name="2XL", Value= "2X Large" });
-            Size.Add(new Colors_and_Sizes() { ID=1, Name="3XL", Value= "3X Large" });
-            Size.Add(new Colors_and_Sizes() { ID=1, Name="4XL", Value= "4X Large" });
-            Size.Add(new Colors_and_Sizes() { ID=1, Name="5XL", Value= "5X Large" });
+            Size.Add(new Colors_and_Sizes() {  ID = 1, Name ="XS",  Value=" X Small"});
+            Size.Add(new Colors_and_Sizes() {  ID = 2, Name="S",   Value=" Small"});
+            Size.Add(new Colors_and_Sizes() {  ID = 3, Name="M",   Value= " Medium" });
+            Size.Add(new Colors_and_Sizes() {  ID = 4, Name="l",   Value= " Large" });
+            Size.Add(new Colors_and_Sizes() {  ID = 5, Name="XL",  Value=" X Large"});
+            Size.Add(new Colors_and_Sizes() {  ID = 6, Name="2XL", Value= "2X Large" });
+            Size.Add(new Colors_and_Sizes() {  ID = 7, Name="3XL", Value= "3X Large" });
+            Size.Add(new Colors_and_Sizes() {  ID = 8, Name="4XL", Value= "4X Large" });
+            Size.Add(new Colors_and_Sizes() {  ID = 9, Name="5XL", Value= "5X Large" });
+            Size.Add(new Colors_and_Sizes() {  ID = 10, Name="No Size", Value= "" });
 
             return Size;
 

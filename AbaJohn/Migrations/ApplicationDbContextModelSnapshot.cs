@@ -159,6 +159,37 @@ namespace AbaJohn.Migrations
                     b.ToTable("cartItems");
                 });
 
+            modelBuilder.Entity("AbaJohn.Models.CartItemProduct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CartItemId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ItemColor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ItemSize")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartItemId");
+
+                    b.HasIndex("ProductID");
+
+                    b.ToTable("cartItemProducts");
+                });
+
             modelBuilder.Entity("AbaJohn.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -346,21 +377,6 @@ namespace AbaJohn.Migrations
                     b.ToTable("productImages");
                 });
 
-            modelBuilder.Entity("CartItemProduct", b =>
-                {
-                    b.Property<int>("CartItemId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("productsID")
-                        .HasColumnType("int");
-
-                    b.HasKey("CartItemId", "productsID");
-
-                    b.HasIndex("productsID");
-
-                    b.ToTable("CartItemProduct");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -531,6 +547,25 @@ namespace AbaJohn.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("AbaJohn.Models.CartItemProduct", b =>
+                {
+                    b.HasOne("AbaJohn.Models.CartItem", "cartItems")
+                        .WithMany()
+                        .HasForeignKey("CartItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AbaJohn.Models.Product", "products")
+                        .WithMany()
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("cartItems");
+
+                    b.Navigation("products");
+                });
+
             modelBuilder.Entity("AbaJohn.Models.Item", b =>
                 {
                     b.HasOne("AbaJohn.Models.Product", "Product")
@@ -592,21 +627,6 @@ namespace AbaJohn.Migrations
                         .IsRequired();
 
                     b.Navigation("product");
-                });
-
-            modelBuilder.Entity("CartItemProduct", b =>
-                {
-                    b.HasOne("AbaJohn.Models.CartItem", null)
-                        .WithMany()
-                        .HasForeignKey("CartItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AbaJohn.Models.Product", null)
-                        .WithMany()
-                        .HasForeignKey("productsID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -9,8 +9,7 @@ namespace AbaJohn.ViewModel
         public int ID { get; set; }
         public string Name { get; set; }
         public double price { get; set; }
-      /*  public string Size { get; set; }
-        public int Quantity { get; set; }*/
+
         public string Code { get; set; }
 
         public string prodeuctGender { get; set; }
@@ -19,7 +18,7 @@ namespace AbaJohn.ViewModel
         public string Description { get; set; }
 
 
-        /*      [Required(ErrorMessage = "Please select file")]*/
+
         [AllowNull]
         public IFormFile? BaseFileImg { get; set; }
         [AllowNull]
@@ -32,9 +31,15 @@ namespace AbaJohn.ViewModel
         public string? Img1 { get; set; }
         public string? Img2 { get; set; }
         public string? Img3 { get; set; }
-
         public int category_id { get; set; }
-        public string seller_id { get; set; }
+        public string? CategoryName { get; set; }
+        public string? seller_id { get; set; }
+        public string? Castomer_id { get; set; }
+        [AllowNull]
+        public List<Item> Items { get; set; } //Items
+        public List<Colors_and_Sizes> Colors { get; set; }
+        public List<Colors_and_Sizes> Sizes { get; set; }
+
 
     }
 }

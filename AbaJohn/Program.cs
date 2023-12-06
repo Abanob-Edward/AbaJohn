@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Globalization;
 using AbaJohn.Services.Itemss;
+using AbaJohn.Services.CartItems;
 
 namespace AbaJohn
 {
@@ -57,6 +58,8 @@ namespace AbaJohn
             builder.Services.AddScoped<IAccountRepository, AccountRepository>();
             builder.Services.AddScoped<Iuser, UserRepository>();
             builder.Services.AddScoped<IItem, ItemRepository>();
+            builder.Services.AddScoped<ICart, CartRepository>();
+
             builder.Services.AddAutoMapper(typeof(Program));
             var app = builder.Build();
 

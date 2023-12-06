@@ -5,8 +5,10 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Transactions;
 
@@ -25,8 +27,6 @@ namespace AbaJohn
             _mapper = mapper;
         }
         public string getseller_id(string SellerName) { 
- 
-
             return context.Users.FirstOrDefault(x => x.UserName == SellerName)?.Id;
         }
         //CURD
@@ -63,7 +63,7 @@ namespace AbaJohn
                 .Where(G => (!string.IsNullOrEmpty(G.prodeuctGender) && G.prodeuctGender.ToLower() == GenderName.ToLower()) || string.IsNullOrEmpty(GenderName))
                 .Where(p => (!string.IsNullOrEmpty(p.category.Name) && p.category.Name.ToLower() == Category.ToLower() ) || string.IsNullOrEmpty(Category))
                 .Where(p => p.Items.Any(c=> !string.IsNullOrEmpty(c.size)&& c.size.ToLower() == size.ToLower()) || string.IsNullOrEmpty(size))
-                .Where(p => p.Items.Any(c=> !string.IsNullOrEmpty(c.Color)&& c.Color == Color) || string.IsNullOrEmpty(Color))
+                .Where(p => p.Items.Any(c=> !string.IsNullOrEmpty(c.Color)&& c.Color.ToLower() == Color.ToLower()) || string.IsNullOrEmpty(Color))
                 .ToList();
             var DataAfterFilter = _mapper.Map<List<productViewModel>>(productlst);
 
@@ -72,30 +72,56 @@ namespace AbaJohn
 
         public productViewModel get_product_byid(int id)
         {
-            productViewModel product_vw = new productViewModel();
-            Product product = context.products.FirstOrDefault(x => x.ID == id);
 
-            ProductImage product_images = context.productImages.FirstOrDefault(c => c.Product_id == id);
-            if(product != null && product_images != null)
+
+            var product = context.products.Where(x => x.ID == id).Include(x => x.Items)
+                  .Include(I => I.images).Include(c => c.category).First();
+
+            var data = _mapper.Map<productViewModel>(product);
+
+
+
+            var sizes = product.Items.Select(x => x.size.ToLower()).Distinct().ToList();
+            var Colors = product.Items.Select(x => x.Color.ToLower()).Distinct().ToList();
+
+            var listofsize = Colors_and_Sizes.getSizes().ToList();
+            var listofColor = Colors_and_Sizes.getcolors().ToList();
+
+            var filtredSizesList = sizes.Select(s =>
             {
-                product_vw.Name = product.Name;
-                product_vw.price = product.price;
-               
-                product_vw.Code = product.Code;
-                product_vw.title = product.title;
-                product_vw.Description = product.Description;
-                product_vw.prodeuctGender = product.prodeuctGender;
-                product_vw.category_id = product.CategoryID;
-                product_vw.BaseImg = product_images.BaseImg;
-                product_vw.Img1 = product_images.Img1;
-                product_vw.Img2 = product_images.Img2;
-                product_vw.Img3 = product_images.Img3;
-                return product_vw;
-            }
+                var size = listofsize.FirstOrDefault(x => x.Name.ToLower() == s);
+             
+                return 
+                new Colors_and_Sizes
+                {
+                    ID =  size.ID ,
+                    Name= s,
+                    Value = size.Value,
+                };
+            }).ToList();
+
+            var filtredColorsList = Colors.Select(s =>
+            {
+                var color = listofColor.FirstOrDefault(x => x.Name.ToLower() == s);
+             
+                return 
+                new Colors_and_Sizes
+                {
+                    ID = color.ID ,
+                    Name = s,
+                    Value = color.Value,
+                };
+            }).ToList();
+
+
+     
+
+            data.Sizes = filtredSizesList; 
+            data.Colors = filtredColorsList; 
 
 
 
-            return null;
+            return data ;
 
         }
         public int AddItemToProduct(ItemViewModel ProductItems)

@@ -2,6 +2,7 @@
 using AbaJohn.ViewModel;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing;
 
 namespace AbaJohn.Services.Itemss
 {
@@ -75,5 +76,27 @@ namespace AbaJohn.Services.Itemss
         
         }
 
+        public int GetItemQuantityByColorAndSize(string? Color, string? Size,int ProID)
+        {
+         //   int quantity = 0;
+            if (string.IsNullOrEmpty(Color)) {
+                Color = "";
+            } 
+            if (string.IsNullOrEmpty(Size)) {
+                Size = "";
+            }
+
+            var ListOfitem = _context.item.Where(c => 
+                             (!string.IsNullOrEmpty(c.size) && c.size.ToLower() == Size.ToLower()) 
+                             || string.IsNullOrEmpty(Size)
+                             ).Where(c => 
+                             (!string.IsNullOrEmpty(c.Color) && c.Color.ToLower() == Color.ToLower()) 
+                             || string.IsNullOrEmpty(Color)
+                             ).Where(x=>x.productID == ProID)
+                             .ToList();
+
+            return ListOfitem.Select(x => x.Quantity).Sum();
+                
+        }
     }
 }

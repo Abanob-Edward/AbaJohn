@@ -28,6 +28,7 @@ namespace AbaJohn.Controllers
         }
         public IActionResult ProductDetails(int Id)
         {
+           
             var product = productRepository.get_product_byid(Id);
             return View(product);
         }
