@@ -126,8 +126,20 @@ namespace AbaJohn
         }
         public int AddItemToProduct(ItemViewModel ProductItems)
         {
-            var item = _mapper.Map<Item>(ProductItems);
-            context.item.Add(item);
+            // cheek if item is already exist 
+             var  ExistItem = context.item.FirstOrDefault( x=>x.productID == ProductItems.productID
+             && x.Color.Equals(ProductItems.Color) && x.size.Equals(ProductItems.size));  
+
+            if (ExistItem!= null)
+            {
+                ExistItem.Quantity += ProductItems.Quantity;
+            }
+            else
+            {
+                var item = _mapper.Map<Item>(ProductItems);
+                context.item.Add(item);
+            }
+          
             return context.SaveChanges();
         }
 

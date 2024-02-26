@@ -113,9 +113,9 @@
                                 @foreach (var item in Model.Sizes)
                                 {
                                    // var size = item.Name;
-                                    <label onclick="SetColor(this,'Size'),getSize('@item.Name')" name="Size" for="@item.Name">
+                                    <label onclick="SetColor(this,'Size'), getSize('@item.Name')" name="Size" for="@item.Name">
                                        @item.Name
-                                        <input type="radio" id="@item.Name">
+                                      @*   <input type="radio" id="@item.Name"> *@
                                     </label>
                                 }
                               
@@ -136,11 +136,20 @@
                         </div>
                         <div class="product__details__cart__option">
                             <div class="quantity">
+                                <strong style="padding: 5%;">Quantity: </strong>
                                 <div class="pro-qty" >
+                                  
                                     <input type="text" id="quantity" value="">
                                 </div>
                             </div>
-                            <a asp-controller="Cartitem" asp-action="AddtoCart" asp-route-size="" asp-route-color="onclick='returnColor()'" asp-route-ProID="@Model.ID" class="primary-btn">add to cart</a>
+                            @{
+
+                                string col = "", siz = "";
+                            }
+                            @*  onclick="setRouteParameter()" *@
+                           @*  <a asp-controller="Cartitem" asp-action="AddtoCart" id="addActivityColor" asp-route-size="" 
+                            asp-route-color="@col" asp-route-ProID="@Model.ID" class="primary-btn">add to cart</a> *@
+                            <a  href="#" id="addActivityColor" onclick="addTocart()" class="primary-btn">add to cart </a>
                         </div>
                         <div class="product__details__btns__option">
                          @* <a href="#"><i class="fa fa-heart"></i> add to wishlist</a>
@@ -485,24 +494,50 @@
         }
 
     }
+
     var Color, Size;
     var ID =@Model.ID;
-    
-    function getSize(val) {
-        Size = val;
-        GetQuantity()
-    }
     function getColor(Col) {
         Color = Col;
-       GetQuantity()
+        GetQuantity();
+    
+      //  console.log(Col)
     }
 
-    function  returnColor() {
-        return Color;
+    function getSize(val) {
+        Size = val;
+        GetQuantity();
+        console.log(val)
+         
+    }
+    
+    // function setrouteparameter() {
+    //     var newhref = $("#addactivitycolor").attr('href') + '/' + color;
+    //     $("#addactivitycolor").attr("href", newhref);
+    // }
+
+    //  public IActionResult AddtoCart(int ProID, string? color , string? size)
+    function addTocart() {
+        $.ajax({
+            type: "GET",
+            url: "/CartItem/AddtoCart",
+            data: {
+
+                Color: Color, Size: Size, ProID: ID
+            },
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                //  console.log(data);
+                  alert('success' + data);
+                //  $('#quantity').html(data);
+               
+            },
+            error: function () {
+                alert('Error');
+            }
+        });
     }
     function GetQuantity() {
-
-
 
         $.ajax({
             type: "GET",

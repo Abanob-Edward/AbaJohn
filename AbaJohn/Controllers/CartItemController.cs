@@ -15,13 +15,18 @@ namespace AbaJohn.Controllers
             this.CartRepository = _CartRepository;
             UserReository = _UserReository;
         }
-        public IActionResult AddtoCart(int ProID, string? color , string? size)
+        public IActionResult CartItems(int productID)
+        {
+            return View();
+        }
+
+        public IActionResult AddtoCart(int ProID, string? Color, string? Size)
         {
 
 
             // cheek if user have account of not 
             var UserName = User.Identity.Name;
-            if (string.IsNullOrEmpty(UserName) || UserName == "")
+            if (string.IsNullOrEmpty(UserName))
             {
                 return RedirectToAction("login", "Account");
             }
@@ -35,7 +40,7 @@ namespace AbaJohn.Controllers
                 //create new cart for user in cartitem  https://localhost:44367/product/ProductDetails/8
                  var CartitemID = CartRepository.CreateNewCart(UserId);
 
-                // add product in cartitem product 
+                // add product in cartItem product 
 
                 CartRepository.AddProductToCartItem(ProID, CartitemID ,"Black","Xl");
             }
@@ -46,7 +51,7 @@ namespace AbaJohn.Controllers
                 CartRepository.AddProductToCartItem(ProID, result.Item2, "Black", "Xl");
             }
             // reternt to cart item page and show all products in cart 
-            return View();
+            return RedirectToAction("CartItems", "CartItem", ProID);
         }
     }
 }

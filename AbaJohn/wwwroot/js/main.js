@@ -154,7 +154,7 @@ function hasScrolled() {
     /*--------------------------
         Select
     ----------------------------*/
-    $("select").niceSelect();
+
 
     /*-------------------
 		Radio Btn
